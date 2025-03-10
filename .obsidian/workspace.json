@@ -1,0 +1,247 @@
+{
+  "main": {
+    "id": "1a3762eace73742d",
+    "type": "split",
+    "children": [
+      {
+        "id": "1b1397a5bc4aa7b3",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "fec28707066613ed",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "explore/react.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "react"
+            }
+          },
+          {
+            "id": "a8a50cdf82da23af",
+            "type": "leaf",
+            "state": {
+              "type": "excalidraw",
+              "state": {
+                "file": "Excalidraw/react.excalidraw.md"
+              },
+              "icon": "excalidraw-icon",
+              "title": "react.excalidraw"
+            }
+          },
+          {
+            "id": "1fe2a20c48d16f4d",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "explore/金融.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "金融"
+            }
+          },
+          {
+            "id": "4f83aeb83df1efa5",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "explore/3d.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "3d"
+            }
+          }
+        ],
+        "currentTab": 3
+      }
+    ],
+    "direction": "vertical"
+  },
+  "left": {
+    "id": "e1232bf3235188d8",
+    "type": "split",
+    "children": [
+      {
+        "id": "53a6f00b73d4fe2d",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "f9cb3b9998255a60",
+            "type": "leaf",
+            "state": {
+              "type": "file-explorer",
+              "state": {
+                "sortOrder": "alphabetical",
+                "autoReveal": false
+              },
+              "icon": "lucide-folder-closed",
+              "title": "文件列表"
+            }
+          },
+          {
+            "id": "2cc1a459a111f512",
+            "type": "leaf",
+            "state": {
+              "type": "search",
+              "state": {
+                "query": "",
+                "matchingCase": false,
+                "explainSearch": false,
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical"
+              },
+              "icon": "lucide-search",
+              "title": "搜索"
+            }
+          },
+          {
+            "id": "d16ad5456e7c6cef",
+            "type": "leaf",
+            "state": {
+              "type": "bookmarks",
+              "state": {},
+              "icon": "lucide-bookmark",
+              "title": "书签"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300
+  },
+  "right": {
+    "id": "7cd57f6fc9313d4a",
+    "type": "split",
+    "children": [
+      {
+        "id": "29e73b0bded8758f",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "72af2ab62ae53393",
+            "type": "leaf",
+            "state": {
+              "type": "backlink",
+              "state": {
+                "file": "readme.md",
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical",
+                "showSearch": false,
+                "searchQuery": "",
+                "backlinkCollapsed": false,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-coming-in",
+              "title": "readme 的反向链接列表"
+            }
+          },
+          {
+            "id": "d81e06ed321ae176",
+            "type": "leaf",
+            "state": {
+              "type": "outgoing-link",
+              "state": {
+                "file": "readme.md",
+                "linksCollapsed": false,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-going-out",
+              "title": "readme 的出链列表"
+            }
+          },
+          {
+            "id": "12c69779321ebfde",
+            "type": "leaf",
+            "state": {
+              "type": "tag",
+              "state": {
+                "sortOrder": "frequency",
+                "useHierarchy": true
+              },
+              "icon": "lucide-tags",
+              "title": "标签"
+            }
+          },
+          {
+            "id": "de127a1736bc734b",
+            "type": "leaf",
+            "state": {
+              "type": "outline",
+              "state": {
+                "file": "readme.md"
+              },
+              "icon": "lucide-list",
+              "title": "readme 的大纲"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300,
+    "collapsed": true
+  },
+  "left-ribbon": {
+    "hiddenItems": {
+      "switcher:打开快速切换": false,
+      "graph:查看关系图谱": false,
+      "canvas:新建白板": false,
+      "daily-notes:打开/创建今天的日记": false,
+      "templates:插入模板": false,
+      "command-palette:打开命令面板": false,
+      "obsidian-excalidraw-plugin:新建绘图文件": false,
+      "obsidian-kanban:创建新看板": false
+    }
+  },
+  "active": "4f83aeb83df1efa5",
+  "lastOpenFiles": [
+    "explore/金融.md",
+    "explore/3d.md",
+    "readme.md",
+    "explore/未命名.md",
+    "Excalidraw/10.1.excalidraw.md",
+    "Excalidraw/算法.md",
+    "explore/react.md",
+    "Excalidraw/react.excalidraw.md",
+    "Excalidraw/10.2.excalidraw.md",
+    "Excalidraw/react/props.excalidraw.md",
+    "算法/未命名.md",
+    "未命名看板.md",
+    "未命名.md",
+    "Excalidraw/react/未命名.canvas",
+    "Excalidraw/react",
+    "Excalidraw/Scripts/Downloaded/Zoom to Fit Selected Elements.svg",
+    "Excalidraw/Scripts/Downloaded/Zoom to Fit Selected Elements.md",
+    "Excalidraw/Scripts/Downloaded/Auto Layout.svg",
+    "Excalidraw/Scripts/Downloaded/Auto Layout.md",
+    "Excalidraw/Scripts/Downloaded/Add Connector Point.svg",
+    "Excalidraw/Scripts/Downloaded/Add Connector Point.md",
+    "Excalidraw/Scripts/Downloaded/Darken background color.md",
+    "stock",
+    "Excalidraw/Scripts/Downloaded/Darken background color.svg",
+    "Excalidraw/Scripts/Downloaded/Deconstruct selected elements into new drawing.svg",
+    "Excalidraw/Scripts/Downloaded/Deconstruct selected elements into new drawing.md",
+    "Excalidraw/Scripts/Downloaded",
+    "Excalidraw/Scripts",
+    "Excalidraw",
+    "Excalidraw/Drawing 2025-02-07 15.07.51.excalidraw.md",
+    "Excalidraw/Drawing 2025-02-07 16.19.24.excalidraw.md",
+    "microsoft-fabric-architecture-icons.excalidrawlib",
+    "算法/未命名.canvas",
+    "算法",
+    "tools/readme.md"
+  ]
+}
