@@ -208,6 +208,7 @@
   },
   "active": "4f83aeb83df1efa5",
   "lastOpenFiles": [
+    "code/htmls/demo.html",
     "code/apparent-asteroid/pnpm-lock.yaml",
     "code/apparent-asteroid/node_modules/@astrojs",
     "code/apparent-asteroid/node_modules",
@@ -222,7 +223,6 @@
     "code/apparent-asteroid/src/content/docs",
     "code/apparent-asteroid/src/assets/houston.webp",
     "code/apparent-asteroid/src/content.config.ts",
-    "code/apparent-asteroid/src/content",
     "code/apparent-asteroid/public/favicon.svg",
     "code/vue3-ts/src/assets/logo.svg",
     "code/vue3-ts/README.md",
