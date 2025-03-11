@@ -1,5 +1,5 @@
 <template>
-  <div class="max-w-2xl mx-auto p-6">
+  <div class=" mx-auto p-6">
     <h1 class="text-3xl font-bold text-center text-gray-800 mb-8">待办事项</h1>
 
     <div class="mb-6">
@@ -107,7 +107,6 @@ onMounted(() => {
 
 <style scoped>
 .todo-container {
-  max-width: 600px;
   margin: 0 auto;
   padding: 20px;
   font-family: Arial, sans-serif;
