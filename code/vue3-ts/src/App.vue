@@ -16,7 +16,7 @@ export default defineComponent({
 </script>
 
 <template>
-  <div class="app">
+  <div class="min-h-screen bg-gray-100 py-8">
     <TodoList />
   </div>
 </template>
