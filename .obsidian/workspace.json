@@ -53,12 +53,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "explore/3d.md",
+                "file": "explore/阅读纸质书或者paper或者文章.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "3d"
+              "title": "阅读纸质书或者paper或者文章"
             }
           }
         ],
@@ -208,24 +208,27 @@
   },
   "active": "4f83aeb83df1efa5",
   "lastOpenFiles": [
-    "explore/前端.md",
-    "explore/tool.md",
-    "explore/阅读纸质书或者paper.md",
+    "code/my-crossy-road-game/src/components/Player.js",
+    "code/my-crossy-road-game/src/components/Camera.js",
+    "code/my-crossy-road-game/src/components/Renderer.js",
+    "code/my-crossy-road-game/src/components",
+    "code/my-crossy-road-game/pnpm-lock.yaml",
+    "code/my-crossy-road-game/node_modules",
+    "code/my-crossy-road-game/src/style.css",
+    "code/my-crossy-road-game/src/main.js",
+    "code/my-crossy-road-game/src/javascript.svg",
+    "code/my-crossy-road-game/src/counter.js",
+    "code/my-crossy-road-game/public/vite.svg",
+    "code/my-crossy-road-game/src",
+    "code/my-crossy-road-game/public",
     "explore/算法.md",
-    "explore/3d.md",
+    "explore/tool.md",
+    "explore/阅读纸质书或者paper或者文章.md",
+    "explore/前端.md",
     "explore/金融.md",
     "explore/机器人.md",
+    "explore/3d.md",
     "explore/计划.md",
-    "code/threejs-demo/components/FaceTrackingTest.tsx",
-    "code/threejs-demo/components/FaceTrackingSelector.tsx",
-    "code/threejs-demo/components/FaceExpressionSync.tsx",
-    "code/threejs-demo/components/FaceTracking.tsx",
-    "code/threejs-demo/node_modules/@tensorflow-models",
-    "code/threejs-demo/node_modules/@tensorflow",
-    "code/threejs-demo/node_modules/@mediapipe",
-    "code/vue3-ts/node_modules/@vitest",
-    "code/vue3-ts/node_modules/@vitejs",
-    "code/vue3-ts/node_modules/@tailwindcss",
     "code/apparent-asteroid/README.md",
     "code/apparent-asteroid/src/content/docs/reference/example.md",
     "code/apparent-asteroid/src/content/docs/guides/example.md",
@@ -248,13 +251,10 @@
     "未命名看板.md",
     "未命名.md",
     "Excalidraw/react/未命名.canvas",
-    "Excalidraw/Scripts/Downloaded/Zoom to Fit Selected Elements.svg",
     "Excalidraw/Scripts/Downloaded/Zoom to Fit Selected Elements.md",
-    "Excalidraw/Scripts/Downloaded/Auto Layout.svg",
     "Excalidraw/Scripts/Downloaded/Auto Layout.md",
     "Excalidraw/Scripts/Downloaded/Add Connector Point.md",
     "Excalidraw/Scripts/Downloaded/Darken background color.md",
-    "Excalidraw/Scripts/Downloaded/Deconstruct selected elements into new drawing.md",
     "算法/未命名.canvas"
   ]
 }
