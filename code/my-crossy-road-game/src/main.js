@@ -3,6 +3,8 @@ import { Renderer } from "./components/Renderer";
 import { Camera } from "./components/Camera";
 import { player } from "./components/Player";
 import { map, initializeMap } from "./components/Map";
+//obitcontroller
+import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 import "./style.css";
 
 const scene = new THREE.Scene();
@@ -27,3 +29,14 @@ function initializeGame() {
 
 const renderer = Renderer();
 renderer.render(scene, camera);
+
+const controls = new OrbitControls(camera, renderer.domElement);
+controls.update();
+
+function animate() {
+  requestAnimationFrame(animate);
+  renderer.render(scene, camera);
+  controls.update();
+}
+
+animate();
