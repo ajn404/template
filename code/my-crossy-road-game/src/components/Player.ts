@@ -1,9 +1,10 @@
 import * as THREE from "three";
 import type { MoveDirection } from "../types";
 
-export const player: THREE.Mesh = Player();
+export const player = Player();
 
-function Player(): THREE.Mesh {
+function Player() {
+  const player = new THREE.Group();
   const body = new THREE.Mesh(
     new THREE.BoxGeometry(15, 15, 20),
     new THREE.MeshLambertMaterial({
@@ -15,7 +16,22 @@ function Player(): THREE.Mesh {
   body.castShadow = true;
   body.receiveShadow = true;
 
-  return body;
+
+  player.add(body);
+
+  const cap = new THREE.Mesh(
+    new THREE.BoxGeometry(2, 4, 2  ),
+    new THREE.MeshLambertMaterial({
+      color: 0xf0619a,
+      flatShading: true,
+    })
+  );
+  cap.position.z = 21;
+  cap.castShadow = true;
+  cap.receiveShadow = true;
+  player.add(cap);
+
+  return player;
 }
 
 export const position: {

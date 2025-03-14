@@ -41,7 +41,7 @@ function setPosition(progress: number) {
 
     player.position.x = THREE.MathUtils.lerp(startX, endX, progress);
     player.position.y = THREE.MathUtils.lerp(startY, endY, progress);
-    player.position.z = Math.sin(progress * Math.PI) * 8 + 11;
+    player.position.z = Math.sin(progress * Math.PI) * 8 + 2;
 }
 
 function setRotation(progress: number) {
