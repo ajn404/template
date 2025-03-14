@@ -23,4 +23,6 @@ export interface VehicleRowData {
   vehicles: VehicleData[];
 }
 
-export type RowData = ForestRowData | VehicleRowData; 
+export type RowData = ForestRowData | VehicleRowData;
+
+export type MoveDirection = "forward" | "backward" | "left" | "right";

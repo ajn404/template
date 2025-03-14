@@ -7,6 +7,8 @@ import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
 import "./style.css";
 import { DirectionalLight } from "./components/DirectionalLight";
 import { animateVehicles } from "./animateVehicles";
+import { animatePlayer } from "./animatePlayer";
+import "./collectUserInput";
 
 const scene: THREE.Scene = new THREE.Scene();
 scene.add(player);
@@ -35,6 +37,7 @@ controls.update();
 
 function animate(): void { 
   animateVehicles();
+  animatePlayer();
   renderer.render(scene, camera);
 }
 
