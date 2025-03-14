@@ -31,6 +31,9 @@ export function Tree(tileIndex, height) {
   );
   // 设置树冠的位置，使其在树干顶部
   crown.position.z = height / 2 + 20;
+  crown.castShadow = true; // 设置树冠投射阴影
+  crown.receiveShadow = true; // 设置树冠接收阴影
+
   // 将树冠添加到树中
   tree.add(crown);
 

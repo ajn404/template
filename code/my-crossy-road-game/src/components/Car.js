@@ -18,6 +18,9 @@ export function Car(initialTileIndex, direction, color) {
   );
   // 设置汽车模型的主要部分的位置
   main.position.z = 12;
+  main.castShadow = true;
+  main.receiveShadow = true;
+
   // 将汽车模型的主要部分添加到汽车模型中
   car.add(main);
 
@@ -32,6 +35,8 @@ export function Car(initialTileIndex, direction, color) {
   // 设置汽车模型的驾驶舱部分的位置
   cabin.position.x = -6;
   cabin.position.z = 25.5;
+  cabin.castShadow = true;
+  cabin.receiveShadow = true;
   // 将汽车模型的驾驶舱部分添加到汽车模型中
   car.add(cabin);
 

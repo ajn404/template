@@ -15,6 +15,7 @@ export function Road(rowIndex) {
     // 使用MeshLambertMaterial材质，颜色为0x454a59
     new THREE.MeshLambertMaterial({ color: 0x454a59 })
   );
+  foundation.receiveShadow = true;
   // 将底座添加到道路对象中
   road.add(foundation);
 

@@ -3,9 +3,11 @@ import { Renderer } from "./components/Renderer";
 import { Camera } from "./components/Camera";
 import { player } from "./components/Player";
 import { map, initializeMap } from "./components/Map";
-//obitcontroller
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 import "./style.css";
+import { DirectionalLight } from "./components/DirectionalLight";
+
+
 
 const scene = new THREE.Scene();
 scene.add(player);
@@ -14,8 +16,7 @@ scene.add(map);
 const ambientLight = new THREE.AmbientLight();
 scene.add(ambientLight);
 
-const dirLight = new THREE.DirectionalLight();
-dirLight.position.set(-100, -100, 200);
+const dirLight = DirectionalLight();
 scene.add(dirLight);
 
 const camera = Camera();

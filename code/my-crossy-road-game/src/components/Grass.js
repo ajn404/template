@@ -17,6 +17,7 @@ export function Grass(rowIndex) {
   );
   // 设置底座的位置，使其在草的底部
   foundation.position.z = 1.5;
+  foundation.receiveShadow = true;
   // 将底座添加到草的组中
   grass.add(foundation);
 
