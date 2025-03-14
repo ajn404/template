@@ -39,12 +39,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "explore/金融.md",
+                "file": "explore/3d.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "金融"
+              "title": "3d"
             }
           },
           {
@@ -208,6 +208,11 @@
   },
   "active": "1fe2a20c48d16f4d",
   "lastOpenFiles": [
+    "explore/金融.md",
+    "code/my-crossy-road-game/src/components/Wheel.js",
+    "code/my-crossy-road-game/src/components/Car.js",
+    "code/my-crossy-road-game/src/components/Car.jss",
+    "code/my-crossy-road-game/src/components/Road.js",
     "components/calculator.vue",
     "components",
     "未命名文件夹",
@@ -216,17 +221,11 @@
     "code/my-crossy-road-game/src/components/Tree.js",
     "code/my-crossy-road-game/src/constants.js",
     "code/my-crossy-road-game/src/components/Grass.js",
-    "code/my-crossy-road-game/src/components/Map.js",
-    "code/my-crossy-road-game/src/components/constants.js",
-    "code/my-crossy-road-game/src/components/Player.js",
-    "code/my-crossy-road-game/src/components/Camera.js",
-    "code/my-crossy-road-game/src/components/Renderer.js",
     "code/my-crossy-road-game/src/javascript.svg",
     "code/my-crossy-road-game/public/vite.svg",
     "explore/算法.md",
     "explore/tool.md",
     "explore/前端.md",
-    "explore/金融.md",
     "explore/机器人.md",
     "explore/计划.md",
     "code/apparent-asteroid/README.md",
