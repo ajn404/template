@@ -53,16 +53,16 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "explore/阅读纸质书或者paper或者文章.md",
+                "file": "explore/3d.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "阅读纸质书或者paper或者文章"
+              "title": "3d"
             }
           }
         ],
-        "currentTab": 3
+        "currentTab": 2
       }
     ],
     "direction": "vertical"
@@ -206,8 +206,13 @@
       "obsidian-kanban:创建新看板": false
     }
   },
-  "active": "4f83aeb83df1efa5",
+  "active": "1fe2a20c48d16f4d",
   "lastOpenFiles": [
+    "components/calculator.vue",
+    "components",
+    "未命名文件夹",
+    "explore/3d.md",
+    "explore/阅读纸质书或者paper或者文章.md",
     "code/my-crossy-road-game/src/components/Tree.js",
     "code/my-crossy-road-game/src/constants.js",
     "code/my-crossy-road-game/src/components/Grass.js",
@@ -216,18 +221,13 @@
     "code/my-crossy-road-game/src/components/Player.js",
     "code/my-crossy-road-game/src/components/Camera.js",
     "code/my-crossy-road-game/src/components/Renderer.js",
-    "code/my-crossy-road-game/src/components",
-    "code/my-crossy-road-game/pnpm-lock.yaml",
-    "code/my-crossy-road-game/node_modules",
     "code/my-crossy-road-game/src/javascript.svg",
     "code/my-crossy-road-game/public/vite.svg",
     "explore/算法.md",
     "explore/tool.md",
-    "explore/阅读纸质书或者paper或者文章.md",
     "explore/前端.md",
     "explore/金融.md",
     "explore/机器人.md",
-    "explore/3d.md",
     "explore/计划.md",
     "code/apparent-asteroid/README.md",
     "code/apparent-asteroid/src/content/docs/reference/example.md",
