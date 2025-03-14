@@ -1,8 +1,8 @@
 import * as THREE from "three";
 
-export const player = Player();
+export const player: THREE.Mesh = Player();
 
-function Player() {
+function Player(): THREE.Mesh {
   const body = new THREE.Mesh(
     new THREE.BoxGeometry(15, 15, 20),
     new THREE.MeshLambertMaterial({
@@ -15,4 +15,4 @@ function Player() {
   body.receiveShadow = true;
 
   return body;
-}
+} 

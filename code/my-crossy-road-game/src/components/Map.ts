@@ -4,8 +4,9 @@ import { Road } from "./Road";
 import { Tree } from "./Tree";
 import { Car } from "./Car";
 import { Truck } from "./Truck";
+import { RowData, ForestRowData, VehicleRowData } from "../types";
 
-export const metadata = [
+export const metadata: RowData[] = [
   {
     type: "car",
     direction: false,
@@ -43,9 +44,9 @@ export const metadata = [
   },
 ];
 
-export const map = new THREE.Group();
+export const map: THREE.Group = new THREE.Group();
 
-export function initializeMap() {
+export function initializeMap(): void {
   for (let rowIndex = 0; rowIndex > -5; rowIndex--) {
     const grass = Grass(rowIndex);
     map.add(grass);
@@ -53,14 +54,15 @@ export function initializeMap() {
   addRows();
 }
 
-export function addRows() {
+export function addRows(): void {
   metadata.forEach((rowData, index) => {
     const rowIndex = index + 1;
 
     if (rowData.type === "forest") {
       const row = Grass(rowIndex);
+      const forestRow = rowData as ForestRowData;
 
-      rowData.trees.forEach(({ tileIndex, height }) => {
+      forestRow.trees.forEach(({ tileIndex, height }) => {
         const three = Tree(tileIndex, height);
         row.add(three);
       });
@@ -68,34 +70,31 @@ export function addRows() {
       map.add(row);
     }
 
-    if (rowData.type === "car") {
+    if (rowData.type === "car" || rowData.type === "truck") {
       const row = Road(rowIndex);
+      const vehicleRow = rowData as VehicleRowData;
 
-      rowData.vehicles.forEach((vehicle) => {
-        const car = Car(
-          vehicle.initialTileIndex,
-          rowData.direction,
-          vehicle.color
-        );
-        row.add(car);
-      });
-
-      map.add(row);
-    }
-
-    if (rowData.type === "truck") {
-      const row = Road(rowIndex);
-
-      rowData.vehicles.forEach((vehicle) => {
-        const truck = Truck(
-          vehicle.initialTileIndex,
-          rowData.direction,
-          vehicle.color
-        );
-        row.add(truck);
+      vehicleRow.vehicles.forEach((vehicle) => {
+        if (rowData.type === "car") {
+          const car = Car(
+            vehicle.initialTileIndex,
+            vehicleRow.direction,
+            vehicle.color
+          );
+          vehicle.ref = car; // 收集车辆的引用
+          row.add(car);
+        } else if (rowData.type === "truck") {
+          const truck = Truck(
+            vehicle.initialTileIndex,
+            vehicleRow.direction,
+            vehicle.color
+          );
+          vehicle.ref = truck; // 收集卡车的引用
+          row.add(truck);
+        }
       });
 
       map.add(row);
     }
   });
-}
+} 

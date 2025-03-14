@@ -2,7 +2,7 @@ import * as THREE from "three";
 import { tilesPerRow, tileSize } from "../constants";
 
 // 导出一个函数，用于创建草
-export function Grass(rowIndex) {
+export function Grass(rowIndex: number): THREE.Group {
   // 创建一个THREE.Group对象，用于存放草的各个部分
   const grass = new THREE.Group();
   // 设置草的位置，根据行数和tileSize计算
@@ -23,4 +23,4 @@ export function Grass(rowIndex) {
 
   // 返回草的组
   return grass;
-}
+} 

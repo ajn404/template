@@ -1,7 +1,7 @@
 import * as THREE from "three";
 
-export function Renderer() {
-  const canvas = document.querySelector("canvas.game");
+export function Renderer(): THREE.WebGLRenderer {
+  const canvas = document.querySelector("canvas.game") as HTMLCanvasElement;
   if (!canvas) throw new Error("Canvas not found");
 
   const renderer = new THREE.WebGLRenderer({
@@ -14,4 +14,4 @@ export function Renderer() {
   renderer.shadowMap.enabled = true;
 
   return renderer;
-}
+} 

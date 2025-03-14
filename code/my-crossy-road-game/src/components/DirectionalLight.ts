@@ -1,7 +1,7 @@
 import * as THREE from "three";
 
 // 导出一个DirectionalLight函数
-export function DirectionalLight() {
+export function DirectionalLight(): THREE.DirectionalLight {
   // 创建一个DirectionalLight对象
   const dirLight = new THREE.DirectionalLight();
   // 设置DirectionalLight的位置
@@ -32,4 +32,4 @@ export function DirectionalLight() {
 
   // 返回DirectionalLight对象
   return dirLight;
-}
+} 

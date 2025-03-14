@@ -2,7 +2,7 @@ import * as THREE from "three";
 import { tileSize } from "../constants";
 
 // 导出一个函数，用于创建一个树
-export function Tree(tileIndex, height) {
+export function Tree(tileIndex: number, height: number): THREE.Group {
   // 创建一个THREE.Group对象，用于存放树的所有部分
   const tree = new THREE.Group();
   // 设置树的位置，根据tileIndex和tileSize计算
@@ -39,4 +39,4 @@ export function Tree(tileIndex, height) {
 
   // 返回树
   return tree;
-}
+} 

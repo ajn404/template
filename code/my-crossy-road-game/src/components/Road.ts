@@ -2,7 +2,7 @@ import * as THREE from "three";
 import { tilesPerRow, tileSize } from "../constants";
 
 // 导出一个名为Road的函数，参数为rowIndex
-export function Road(rowIndex) {
+export function Road(rowIndex: number): THREE.Group {
   // 创建一个THREE.Group对象，用于存放道路的各个部分
   const road = new THREE.Group();
   // 设置道路的位置，根据rowIndex的值来确定道路的y轴位置
@@ -21,4 +21,4 @@ export function Road(rowIndex) {
 
   // 返回道路对象
   return road;
-}
+} 

@@ -3,7 +3,7 @@ import { tileSize } from "../constants";
 import { Wheel } from "./Wheel";
 
 // 导出一个名为Car的函数，用于创建一个汽车模型
-export function Car(initialTileIndex, direction, color) {
+export function Car(initialTileIndex: number, direction: boolean, color: number): THREE.Group {
   // 创建一个THREE.Group对象，用于存放汽车模型的所有组件
   const car = new THREE.Group();
   // 设置汽车模型的位置，根据初始瓦片索引和瓦片大小计算
@@ -52,4 +52,4 @@ export function Car(initialTileIndex, direction, color) {
 
   // 返回汽车模型
   return car;
-}
+} 
