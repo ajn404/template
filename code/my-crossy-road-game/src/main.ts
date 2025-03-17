@@ -1,44 +1,54 @@
 import * as THREE from "three";
 import { Renderer } from "./components/Renderer";
 import { Camera } from "./components/Camera";
-import { player } from "./components/Player";
-import { map, initializeMap } from "./components/Map";
-import "./style.css";
 import { DirectionalLight } from "./components/DirectionalLight";
+import { player, initializePlayer } from "./components/Player";
+import { map, initializeMap } from "./components/Map";
 import { animateVehicles } from "./animateVehicles";
 import { animatePlayer } from "./animatePlayer";
+import { hitTest } from "./hitTest";
+import "./style.css";
 import "./collectUserInput";
 
-const scene: THREE.Scene = new THREE.Scene();
+const scene = new THREE.Scene();
 scene.add(player);
 scene.add(map);
 
-const ambientLight: THREE.AmbientLight = new THREE.AmbientLight();
+const ambientLight = new THREE.AmbientLight();
 scene.add(ambientLight);
 
-const dirLight: THREE.DirectionalLight = DirectionalLight();
-// scene.add(dirLight);
-dirLight.target = player; // Set the target of the light to the player
-player.add(dirLight); // Add the light to the player group
+const dirLight = DirectionalLight();
+dirLight.target = player;
+player.add(dirLight);
 
-const camera: THREE.OrthographicCamera = Camera();
-// scene.add(camera);
+const camera = Camera();
 player.add(camera);
+
+const scoreDOM = document.getElementById("score");
+const resultDOM = document.getElementById("result-container");
 
 initializeGame();
 
-function initializeGame(): void {
+document
+  .querySelector("#retry")
+  ?.addEventListener("click", initializeGame);
+
+function initializeGame() {
+  initializePlayer();
   initializeMap();
+
+  // Initialize UI
+  if (scoreDOM) scoreDOM.innerText = "0";
+  if (resultDOM) resultDOM.style.visibility = "hidden";
 }
 
-const renderer: THREE.WebGLRenderer = Renderer();
-renderer.render(scene, camera);
+const renderer = Renderer();
+renderer.setAnimationLoop(animate);
 
-
-function animate(): void { 
+function animate() {
   animateVehicles();
   animatePlayer();
+  hitTest();
+
   renderer.render(scene, camera);
 }
-
-renderer.setAnimationLoop(animate); 

@@ -1,7 +1,7 @@
 import * as THREE from "three";
 import type { MoveDirection } from "../types";
-import { endsUpInValidPosition } from "../utilities/endsupInValidPosition";
 import { addRows, metadata as rows } from "./Map";
+import { endsUpInValidPosition } from "../utilities/endsUpInValidPosition";
 
 export const player = Player();
 
@@ -93,4 +93,24 @@ export const stepCompleted = () => {
   if (position.currentRow > rows.length - 10) {
     addRows();
   }
+
+  const scoreDOM = document.getElementById("score");
+  if (scoreDOM) scoreDOM.innerText = position.currentRow.toString();
+}
+
+
+// 初始化玩家位置
+export function initializePlayer() {
+  // 将玩家位置设置为(0, 0)
+  player.position.x = 0;
+  player.position.y = 0;
+  // 将玩家子元素的位置设置为(0, 0, 0)
+  player.children[0].position.z = 0;
+
+  // 将当前行和当前瓦片设置为0
+  position.currentRow = 0;
+  position.currentTile = 0;
+
+  // 清空移动队列
+  movesQueue.length = 0;
 }
