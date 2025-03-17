@@ -21,7 +21,8 @@ const dirLight: THREE.DirectionalLight = DirectionalLight();
 scene.add(dirLight);
 
 const camera: THREE.OrthographicCamera = Camera();
-scene.add(camera);
+// scene.add(camera);
+player.add(camera);
 
 initializeGame();
 

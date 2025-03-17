@@ -1,5 +1,6 @@
 import * as THREE from "three";
 import type { MoveDirection } from "../types";
+import { endsUpInValidPosition } from "../utilities/endsupInValidPosition";
 
 export const player = Player();
 
@@ -20,7 +21,7 @@ function Player() {
   player.add(body);
 
   const cap = new THREE.Mesh(
-    new THREE.BoxGeometry(2, 4, 2  ),
+    new THREE.BoxGeometry(2, 4, 2),
     new THREE.MeshLambertMaterial({
       color: 0xf0619a,
       flatShading: true,
@@ -31,7 +32,10 @@ function Player() {
   cap.receiveShadow = true;
   player.add(cap);
 
-  return player;
+  const playerContainer = new THREE.Group();
+  playerContainer.add(player);
+
+  return playerContainer;
 }
 
 export const position: {
@@ -44,7 +48,18 @@ export const position: {
 
 export const movesQueue: MoveDirection[] = [];
 
+// 导出一个函数，用于将移动方向添加到移动队列中
 export const queueMove = (direction: MoveDirection) => {
+  const currentPosition = {
+    rowIndex: position.currentRow,
+    tileIndex: position.currentTile,
+  };
+  const isValidPosition = endsUpInValidPosition(currentPosition, [
+    ...movesQueue,
+    direction,
+  ]);
+  if (!isValidPosition) return;
+  // 将移动方向添加到移动队列中
   movesQueue.push(direction);
 }
 
