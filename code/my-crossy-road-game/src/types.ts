@@ -24,5 +24,7 @@ export interface VehicleRowData {
 }
 
 export type RowData = ForestRowData | VehicleRowData;
+export type RowType = RowData['type'];
+export type Row = RowData;
 
 export type MoveDirection = "forward" | "backward" | "left" | "right";

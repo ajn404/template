@@ -1,6 +1,7 @@
 import * as THREE from "three";
 import type { MoveDirection } from "../types";
 import { endsUpInValidPosition } from "../utilities/endsupInValidPosition";
+import { addRows, metadata as rows } from "./Map";
 
 export const player = Player();
 
@@ -87,5 +88,9 @@ export const stepCompleted = () => {
       // 向右移动，列数加1
       position.currentTile += 1;
       break;
+  }
+  // 如果移动到最后一行，则添加一行
+  if (position.currentRow > rows.length - 10) {
+    addRows();
   }
 }
