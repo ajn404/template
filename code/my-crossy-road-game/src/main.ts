@@ -18,7 +18,9 @@ const ambientLight: THREE.AmbientLight = new THREE.AmbientLight();
 scene.add(ambientLight);
 
 const dirLight: THREE.DirectionalLight = DirectionalLight();
-scene.add(dirLight);
+// scene.add(dirLight);
+dirLight.target = player; // Set the target of the light to the player
+player.add(dirLight); // Add the light to the player group
 
 const camera: THREE.OrthographicCamera = Camera();
 // scene.add(camera);
