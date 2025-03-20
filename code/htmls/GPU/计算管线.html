@@ -27,20 +27,20 @@
         const BUFFER_SIZE = 1000;
 
         const shader = `
-            @group 0 @binding 0
-            var<storage, read_write> data : array<f32>;
+            @group (0) @binding (0)
+            var<storage, read_write> output : array<f32>;
 
             @compute @workgroup_size(64)
             fn main(
-                @builtin(global_invocation_id) 
-                global_id : vec3<u32>,
-                @builtin(global_invocation_id)
-                local_id : vec3<u32>,
+                @builtin(global_invocation_id) //全局索引
+                global_id : vec3u,
+                @builtin(local_invocation_id) //本地索引
+                local_id : vec3u,
             ) {
                 if(global_id.x >= ${BUFFER_SIZE}){
                     return;
                 }
-                output[global_id.x] = f32(global_id.x)*1000+f32(local_id.x);
+                output[global_id.x] = f32(global_id.x) * 1000.+f32(local_id.x);
             }
             `;
 
@@ -53,7 +53,75 @@
           size: BUFFER_SIZE,
           usage: GPUBufferUsage.MAP_READ | GPUBufferUsage.COPY_DST,
         });
+
+        //WebGPU API 的 GPUBindGroupLayout 接口定义了将在管道
+        // 中使用的相关 GPU 资源（如缓冲区）的结构和目的，
+        // 并在创建 GPUBindGroup 时用作模板。
+        const bindGroupLayout = device.createBindGroupLayout({
+          entries: [
+            {
+              binding: 0,
+              visibility: GPUShaderStage.COMPUTE,
+              buffer: {
+                type: "storage",
+              },
+            },
+          ],
+        });
+
+        //通过此方法调用一个描述符对象，
+        // 该对象指定了这个绑定组应该基于的绑定组布局，
+        // 以及绑定到布局中定义的插槽变量的详细信息。
+        // 在这种情况下，我们声明了绑定插槽 0，并指定了之前定义的 output 缓冲区应该绑定到它。
+        const bindGroup = device.createBindGroup({
+          layout: bindGroupLayout,
+          entries: [
+            {
+              binding: 0,
+              resource: {
+                buffer: output,
+              },
+            },
+          ],
+        });
+
+        const shaderModule = device.createShaderModule({
+          code: shader,
+        });
+
+        //创建一个计算管线，该管线将使用我们之前创建的着色器模块和绑定组布局。
+        const computePipeline = device.createComputePipeline({
+          layout: device.createPipelineLayout({
+            bindGroupLayouts: [bindGroupLayout],
+          }),
+          compute: {
+            module: shaderModule,
+            entryPoint: "main",
+          },
+        });
+
+        const commandEncoder = device.createCommandEncoder(); // 创建命令编码器
+        const parseEncoder = commandEncoder.beginComputePass();
+
+        parseEncoder.setPipeline(computePipeline); // 设置计算管线
+        parseEncoder.setBindGroup(0, bindGroup); // 设置绑定组
+        parseEncoder.dispatchWorkgroups(Math.ceil(BUFFER_SIZE / 64)); // 启动计算工作组
+        parseEncoder.end();
+
+
+        commandEncoder.copyBufferToBuffer(output, 0, stagingBuffer, 0, BUFFER_SIZE);
+
+        device.queue.submit([commandEncoder.finish()]);// 提交命令
+
+        await stagingBuffer.mapAsync(GPUMapMode.READ,0, BUFFER_SIZE);
+        const copyArrayBuffer = stagingBuffer.getMappedRange();
+        const data = copyArrayBuffer.slice(0, BUFFER_SIZE);
+        stagingBuffer.unmap();
+        console.log(new Float32Array(data));
+
       }
+
+      main();
     </script>
   </body>
 </html>

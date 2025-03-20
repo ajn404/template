@@ -9,3 +9,6 @@
 
 ### 前端组件
 -  command menu  https://cmdk.paco.me/
+
+### ai
+- cursor提示词增强 https://cursor.directory/
