@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>计算管线demo</title>
+  </head>
+  <body>
+    <h1>计算管线基本demo</h1>
+    <canvas id="gpuCanvas" width="800" height="600"></canvas>
+    <script>
+      async function main() {
+        if (!navigator.gpu) {
+          console.log("WebGPU is not supported in this browser");
+          return;
+        }
+        const adapter = await navigator.gpu.requestAdapter();
+        if (!adapter) {
+          console.log("Failed to get GPU adapter");
+          return;
+        }
+        const device = await adapter.requestDevice();
+        const context = document
+          .getElementById("gpuCanvas")
+          .getContext("gpupresent");
+
+        const BUFFER_SIZE = 1000;
+
+        const shader = `
+            @group 0 @binding 0
+            var<storage, read_write> data : array<f32>;
+
+            @compute @workgroup_size(64)
+            fn main(
+                @builtin(global_invocation_id) 
+                global_id : vec3<u32>,
+                @builtin(global_invocation_id)
+                local_id : vec3<u32>,
+            ) {
+                if(global_id.x >= ${BUFFER_SIZE}){
+                    return;
+                }
+                output[global_id.x] = f32(global_id.x)*1000+f32(local_id.x);
+            }
+            `;
+
+        const output = device.createBuffer({
+          size: BUFFER_SIZE,
+          usage: GPUBufferUsage.STORAGE | GPUBufferUsage.COPY_SRC,
+        });
+
+        const stagingBuffer = device.createBuffer({
+          size: BUFFER_SIZE,
+          usage: GPUBufferUsage.MAP_READ | GPUBufferUsage.COPY_DST,
+        });
+      }
+    </script>
+  </body>
+</html>

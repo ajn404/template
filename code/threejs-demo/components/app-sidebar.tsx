@@ -7,27 +7,29 @@ import {
     SidebarMenuItem,
 } from "@/components/ui/sidebar"
 import { getMenuItems } from "@/utils/getMenuItems"
-import Link from "next/link"
+import { ClientSideMenuItem } from "./client-side-menu-item"
 
-export function AppSidebar() {
-    const menuItems = getMenuItems();
-    console.log(menuItems)
+export async function AppSidebar() {
+    const menuItems = await getMenuItems();
 
     return (
-        <Sidebar>
-            <SidebarHeader />
+        <Sidebar className="border-r min-h-screen bg-background">
+            <SidebarHeader className="p-4 border-b">
+                <h2 className="text-lg font-semibold">Three.js Demo</h2>
+            </SidebarHeader>
             <SidebarContent>
-                <SidebarGroup>
+                <SidebarGroup className="p-2 space-y-1">
                     {menuItems.map(item => (
-                        <SidebarMenuItem key={item.href}>
-                            <Link
-                                href={item.href}>{item.name}
-                            </Link>
-                        </SidebarMenuItem>
+                        <ClientSideMenuItem 
+                            key={item.href}
+                            item={item}
+                        />
                     ))}
                 </SidebarGroup>
             </SidebarContent>
-            <SidebarFooter />
+            <SidebarFooter className="p-4 border-t">
+                <p className="text-sm text-muted-foreground">© 2024 Three.js Demo</p>
+            </SidebarFooter>
         </Sidebar>
     )
 }
