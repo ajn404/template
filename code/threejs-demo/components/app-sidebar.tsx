@@ -4,7 +4,6 @@ import {
     SidebarFooter,
     SidebarGroup,
     SidebarHeader,
-    SidebarMenuItem,
 } from "@/components/ui/sidebar"
 import { getMenuItems } from "@/utils/getMenuItems"
 import { ClientSideMenuItem } from "./client-side-menu-item"

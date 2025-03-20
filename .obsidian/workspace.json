@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "explore/3d.md",
+                "file": "explore/前端.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "3d"
+              "title": "前端"
             }
           }
         ]
@@ -167,24 +167,25 @@
   },
   "active": "4f83aeb83df1efa5",
   "lastOpenFiles": [
+    "code/threejs-demo/app/triangle/vertex.wgsl",
+    "code/threejs-demo/app/triangle/frag copy.wgsl",
+    "explore/3d.md",
+    "code/threejs-demo/pnpm-lock.yaml.3515915032",
+    "code/threejs-demo/types/wgsl.d.ts",
+    "code/threejs-demo/types",
+    "code/threejs-demo/app/triangle/frag.wgsl",
+    "code/threejs-demo/app/triangle/page.tsx",
+    "code/threejs-demo/app/triangle",
+    "code/threejs-demo/app/webgpu/triangle/page.tsx",
+    "code/threejs-demo/app/webgpu/triangle/first-demo.tsx",
+    "code/threejs-demo/app/webgpu/triangle",
     "explore/算法.md",
     "explore/金融.md",
     "explore/机器人.md",
-    "explore/3d.md",
     "Excalidraw/react.excalidraw.md",
     "explore/tool.md",
     "explore/前端.md",
-    "code/threejs-demo/public/basis/basis_transcoder.wasm",
-    "code/threejs-demo/public/basis/basis_transcoder.js",
     "code/threejs-demo/public/basis/README.md",
-    "code/threejs-demo/public/basis",
-    "code/threejs-demo/public/wasm/vision_wasm_nosimd_internal.wasm",
-    "code/threejs-demo/public/wasm/vision_wasm_nosimd_internal.js",
-    "code/threejs-demo/public/wasm/vision_wasm_internal.wasm",
-    "code/threejs-demo/public/wasm/vision_wasm_internal.js",
-    "code/threejs-demo/public/wasm",
-    "code/threejs-demo/public/models/facecap.glb.crswap",
-    "code/threejs-demo/public/models/facecap.glb",
     "explore/阅读纸质书或者paper或者文章.md",
     "code/my-crossy-road-game/src/javascript.svg",
     "code/my-crossy-road-game/public/vite.svg",
