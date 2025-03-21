@@ -7,21 +7,26 @@ export default function Triangle() {
     const resources = React.useRef<{
         device?: GPUDevice;
         context?: GPUCanvasContext;
-        adapter?: GPUAdapter|null;
+        adapter?: GPUAdapter | null;
         pipeline?: GPURenderPipeline;
         vertexBuffer?: GPUBuffer;
         animationFrameId?: number;
+        multisampleTexture?: GPUTexture
     }>({});
 
     useEffect(() => {
         const initWebGPU = async () => {
             try {
                 const canvas = document.querySelector('canvas') as HTMLCanvasElement;
-                
+
                 // 1. 初始化适配器和设备
-                resources.current.adapter = await navigator.gpu.requestAdapter();
+                resources.current.adapter = await navigator.gpu.requestAdapter(
+                    {
+                        featureLevel: 'compatibility'
+                    }
+                );
                 resources.current.device = await resources.current.adapter?.requestDevice();
-                
+
                 if (!resources.current.device) return;
 
                 // 2. 配置Canvas上下文
@@ -30,7 +35,7 @@ export default function Triangle() {
                 resources.current.context.configure({
                     device: resources.current.device,
                     format: presentationFormat,
-                    alphaMode: 'premultiplied',
+                    // alphaMode: 'premultiplied',
                 });
 
                 // 3. 设置Canvas尺寸
@@ -40,7 +45,7 @@ export default function Triangle() {
 
                 // 4. 创建GPU资源
                 const { device } = resources.current;
-                
+
                 // 着色器模块
                 const shaderModule = device.createShaderModule({
                     code: `
@@ -57,6 +62,8 @@ export default function Triangle() {
                         }
                     `
                 });
+
+                const sampleCount = 4;
 
                 // 渲染管线
                 resources.current.pipeline = device.createRenderPipeline({
@@ -83,12 +90,15 @@ export default function Triangle() {
                     primitive: {
                         topology: 'triangle-list',
                     },
+                    multisample: {
+                        count: sampleCount
+                    }
                 });
 
                 // 顶点缓冲区
                 const vertices = new Float32Array([
                     0.0, 0.5,    // 顶部顶点
-                    -0.5, -0.5,  // 左下角顶点
+                    -0.5, -0.1,  // 左下角顶点
                     0.5, -0.5,   // 右下角顶点
                 ]);
 
@@ -98,6 +108,15 @@ export default function Triangle() {
                 });
 
                 device.queue.writeBuffer(resources.current.vertexBuffer, 0, vertices);
+                // 获取当前纹理
+                resources.current.multisampleTexture = resources.current.device.createTexture({
+                    size: [canvas.width, canvas.height],
+                    sampleCount,
+                    format: presentationFormat,
+                    usage: GPUTextureUsage.RENDER_ATTACHMENT
+                });
+                const view = resources.current.multisampleTexture.createView();
+
 
                 // 5. 启动渲染循环
                 const render = () => {
@@ -105,17 +124,16 @@ export default function Triangle() {
 
                     // 创建命令编码器
                     const commandEncoder = resources.current.device.createCommandEncoder();
-                    
-                    // 获取当前纹理
-                    const texture = resources.current.context.getCurrentTexture();
-                    
+
                     // 配置渲染通道
                     const renderPass = commandEncoder.beginRenderPass({
                         colorAttachments: [{
-                            view: texture.createView(),
-                            clearValue: [0, 0, 0, 1],
+                            view,
+                            resolveTarget: resources.current.context.getCurrentTexture().createView(),
+                            clearValue: [0, 0, 0, 0],
                             loadOp: 'clear',
-                            storeOp: 'store',
+                            storeOp: 'discard',
+                            // storeOp: 'store',
                         }]
                     });
 
@@ -151,8 +169,9 @@ export default function Triangle() {
             if (resources.current.device) {
                 // 显式释放所有GPU对象
                 resources.current.vertexBuffer?.destroy();
+                resources.current.multisampleTexture?.destroy(); // 销毁多采样缓冲区
                 resources.current.pipeline = undefined;
-                
+
                 // 销毁设备
                 resources.current.device.destroy();
                 resources.current.device = undefined;
