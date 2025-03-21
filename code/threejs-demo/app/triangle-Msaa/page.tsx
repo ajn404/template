@@ -4,50 +4,92 @@ import React, { useEffect } from 'react';
 import { quitIfWebGPUNotAvailable } from "@/utils/gpu"
 
 export default function Triangle() {
+    const canvasRef = React.useRef<HTMLCanvasElement>(null);
     const resources = React.useRef<{
         device?: GPUDevice;
         context?: GPUCanvasContext;
-        adapter?: GPUAdapter | null;
         pipeline?: GPURenderPipeline;
         vertexBuffer?: GPUBuffer;
+        multisampleTexture?: GPUTexture;
         animationFrameId?: number;
-        multisampleTexture?: GPUTexture
     }>({});
+
+    // 安全创建纹理的方法
+    const createMultisampleTexture = (device: GPUDevice, width: number, height: number) => {
+        if (resources.current.multisampleTexture) {
+            resources.current.multisampleTexture.destroy();
+        }
+        return device.createTexture({
+            size: [width, height],
+            sampleCount: 4,
+            format: navigator.gpu.getPreferredCanvasFormat(),
+            usage: GPUTextureUsage.RENDER_ATTACHMENT
+        });
+    };
+
+    // 增强型资源清理
+    const cleanupResources = () => {
+        if (resources.current.animationFrameId) {
+            cancelAnimationFrame(resources.current.animationFrameId);
+        }
+
+        if (resources.current.device) {
+            resources.current.device.queue.onSubmittedWorkDone().then(() => {
+                resources.current.vertexBuffer?.destroy();
+                resources.current.multisampleTexture?.destroy();
+                resources.current.pipeline = undefined;
+                resources.current.device?.destroy();
+            });
+        }
+
+        if (resources.current.context) {
+            resources.current.context.unconfigure();
+        }
+
+        // if (canvasRef.current) {
+        //     canvasRef.current.width = 0;
+        //     canvasRef.current.height = 0;
+        // }
+    };
 
     useEffect(() => {
         const initWebGPU = async () => {
             try {
-                const canvas = document.querySelector('canvas') as HTMLCanvasElement;
+                cleanupResources(); // 先清理旧资源
 
-                // 1. 初始化适配器和设备
-                resources.current.adapter = await navigator.gpu.requestAdapter(
-                    {
-                        featureLevel: 'compatibility'
-                    }
-                );
-                resources.current.device = await resources.current.adapter?.requestDevice();
+                const canvas = canvasRef.current;
+                if (!canvas) return;
 
+                // 等待DOM更新完成
+                await new Promise(resolve => setTimeout(resolve, 50));
+
+                // 设备初始化
+                const adapter = await navigator.gpu.requestAdapter();
+                resources.current.device = await adapter?.requestDevice();
                 if (!resources.current.device) return;
 
-                // 2. 配置Canvas上下文
+                // 上下文配置
                 resources.current.context = canvas.getContext('webgpu') as GPUCanvasContext;
                 const presentationFormat = navigator.gpu.getPreferredCanvasFormat();
                 resources.current.context.configure({
                     device: resources.current.device,
                     format: presentationFormat,
-                    // alphaMode: 'premultiplied',
                 });
 
-                // 3. 设置Canvas尺寸
+                // 尺寸设置
                 const devicePixelRatio = window.devicePixelRatio || 1;
-                canvas.width = canvas.clientWidth * devicePixelRatio;
-                canvas.height = canvas.clientHeight * devicePixelRatio;
+                canvas.width = Math.max(1, canvas.clientWidth * devicePixelRatio);
+                canvas.height = Math.max(1, canvas.clientHeight * devicePixelRatio);
 
-                // 4. 创建GPU资源
-                const { device } = resources.current;
+                // 创建多采样纹理
+                resources.current.multisampleTexture = createMultisampleTexture(
+                    resources.current.device,
+                    canvas.width,
+                    canvas.height
+                );
 
                 // 着色器模块
-                const shaderModule = device.createShaderModule({
+                const shaderModule = resources.current.device.createShaderModule({
                     code: `
                         // 顶点着色器
                         @vertex
@@ -63,10 +105,8 @@ export default function Triangle() {
                     `
                 });
 
-                const sampleCount = 4;
-
                 // 渲染管线
-                resources.current.pipeline = device.createRenderPipeline({
+                resources.current.pipeline = resources.current.device.createRenderPipeline({
                     layout: 'auto',
                     vertex: {
                         module: shaderModule,
@@ -91,7 +131,7 @@ export default function Triangle() {
                         topology: 'triangle-list',
                     },
                     multisample: {
-                        count: sampleCount
+                        count: 4
                     }
                 });
 
@@ -102,94 +142,82 @@ export default function Triangle() {
                     0.5, -0.5,   // 右下角顶点
                 ]);
 
-                resources.current.vertexBuffer = device.createBuffer({
+                resources.current.vertexBuffer = resources.current.device.createBuffer({
                     size: vertices.byteLength,
                     usage: GPUBufferUsage.VERTEX | GPUBufferUsage.COPY_DST,
                 });
 
-                device.queue.writeBuffer(resources.current.vertexBuffer, 0, vertices);
-                // 获取当前纹理
-                resources.current.multisampleTexture = resources.current.device.createTexture({
-                    size: [canvas.width, canvas.height],
-                    sampleCount,
-                    format: presentationFormat,
-                    usage: GPUTextureUsage.RENDER_ATTACHMENT
-                });
-                const view = resources.current.multisampleTexture.createView();
+                resources.current.device.queue.writeBuffer(resources.current.vertexBuffer, 0, vertices);
 
+                // 安全渲染循环
+                const safeRender = () => {
+                    if (!resources.current.device ||
+                        !resources.current.context
+                    ) return;
 
-                // 5. 启动渲染循环
-                const render = () => {
-                    if (!resources.current.device || !resources.current.context) return;
+                    try {
+                        const commandEncoder = resources.current.device.createCommandEncoder();
 
-                    // 创建命令编码器
-                    const commandEncoder = resources.current.device.createCommandEncoder();
+                        const currentTexture = resources.current.context.getCurrentTexture();
+                        if (!currentTexture) {
+                            console.warn("无法获取当前纹理");
+                            return;
+                        }
 
-                    // 配置渲染通道
-                    const renderPass = commandEncoder.beginRenderPass({
-                        colorAttachments: [{
-                            view,
-                            resolveTarget: resources.current.context.getCurrentTexture().createView(),
-                            clearValue: [0, 0, 0, 0],
-                            loadOp: 'clear',
-                            storeOp: 'discard',
-                            // storeOp: 'store',
-                        }]
-                    });
+                        const view = resources.current.multisampleTexture?.createView();
 
-                    // 绘制指令
-                    renderPass.setPipeline(resources.current.pipeline!);
-                    renderPass.setVertexBuffer(0, resources.current.vertexBuffer!);
-                    renderPass.draw(3);
-                    renderPass.end();
+                        if (!view) return
 
-                    // 提交命令
-                    resources.current.device.queue.submit([commandEncoder.finish()]);
+                        // 配置渲染通道
+                        const renderPass = commandEncoder.beginRenderPass({
+                            colorAttachments: [{
+                                view,
+                                resolveTarget: currentTexture.createView(),
+                                clearValue: [0, 0, 0, 0],
+                                loadOp: 'clear',
+                                storeOp: 'discard',
+                            }]
+                        });
 
-                    // 请求下一帧
-                    resources.current.animationFrameId = requestAnimationFrame(render);
+                        // 绘制指令
+                        renderPass.setPipeline(resources.current.pipeline!);
+                        renderPass.setVertexBuffer(0, resources.current.vertexBuffer!);
+                        renderPass.draw(3);
+                        renderPass.end();
+
+                        // 提交命令
+                        resources.current.device.queue.submit([commandEncoder.finish()]);
+
+                        // 请求下一帧
+                        resources.current.animationFrameId = requestAnimationFrame(safeRender);
+                    } catch (error) {
+                        console.error('渲染错误:', error);
+                        cleanupResources();
+                    }
                 };
 
-                resources.current.animationFrameId = requestAnimationFrame(render);
+                safeRender();
             } catch (error) {
-                console.error('WebGPU初始化失败:', error);
+                console.error('初始化失败:', error);
+                cleanupResources();
             }
         };
 
         initWebGPU();
-
-        // 清理函数
-        return () => {
-            // 1. 停止渲染循环
-            if (resources.current.animationFrameId) {
-                cancelAnimationFrame(resources.current.animationFrameId);
-            }
-
-            // 2. 释放GPU资源
-            if (resources.current.device) {
-                // 显式释放所有GPU对象
-                resources.current.vertexBuffer?.destroy();
-                resources.current.multisampleTexture?.destroy(); // 销毁多采样缓冲区
-                resources.current.pipeline = undefined;
-
-                // 销毁设备
-                resources.current.device.destroy();
-                resources.current.device = undefined;
-            }
-
-            // 3. 重置Canvas上下文
-            if (resources.current.context) {
-                resources.current.context.unconfigure();
-                resources.current.context = undefined;
-            }
-
-            console.log('WebGPU资源已完全释放');
-        };
+        return cleanupResources;
     }, []);
 
     return (
         <div className="w-full h-screen">
-            <canvas className="h-[90%] w-[90%] m-auto" />
+            <canvas
+                ref={canvasRef}
+                className="h-[90%] w-[90%] m-auto"
+                style={{
+                    minWidth: '100px',
+                    minHeight: '100px',
+                    background: 'transparent'
+                }}
+            />
         </div>
     );
 }

@@ -24,6 +24,8 @@ export default function Triangle() {
                 
                 if (!resources.current.device) return;
 
+                
+
                 // 2. 配置Canvas上下文
                 resources.current.context = canvas.getContext('webgpu') as GPUCanvasContext;
                 const presentationFormat = navigator.gpu.getPreferredCanvasFormat();
@@ -166,7 +168,7 @@ export default function Triangle() {
 
             console.log('WebGPU资源已完全释放');
         };
-    }, []);
+    }, [resources]);
 
     return (
         <div className="w-full h-screen">
