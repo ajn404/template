@@ -167,6 +167,8 @@
   },
   "active": "4f83aeb83df1efa5",
   "lastOpenFiles": [
+    "code/threejs-demo/app/geoey-cursor/page.tsx",
+    "code/threejs-demo/app/geoey-cursor",
     "explore/算法.md",
     "explore/前端.md",
     "explore/3d.md",
@@ -182,7 +184,6 @@
     "code/threejs-demo/app/triangle/frag copy.wgsl",
     "code/threejs-demo/pnpm-lock.yaml.3515915032",
     "code/threejs-demo/types/wgsl.d.ts",
-    "code/threejs-demo/types",
     "explore/金融.md",
     "Excalidraw/react.excalidraw.md",
     "code/threejs-demo/public/basis/README.md",

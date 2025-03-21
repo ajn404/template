@@ -1,7 +1,6 @@
 'use client'
 
 import React, { useEffect } from 'react';
-import { quitIfWebGPUNotAvailable } from "@/utils/gpu"
 
 export default function Triangle() {
     const canvasRef = React.useRef<HTMLCanvasElement>(null);
@@ -156,7 +155,10 @@ export default function Triangle() {
                     ) return;
 
                     try {
-                        const commandEncoder = resources.current.device.createCommandEncoder();
+                        const commandEncoder = resources.current.device.createCommandEncoder(); //  创建命令编码器
+
+                        // 确认resources.current.context已配置
+                        if (!resources.current.context||!resources.current.context.getConfiguration()?.device) return
 
                         const currentTexture = resources.current.context.getCurrentTexture();
                         if (!currentTexture) {
