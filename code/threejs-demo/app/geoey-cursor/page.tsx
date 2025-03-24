@@ -14,12 +14,21 @@ export default function Page() {
         Array.from({ length: TAIL_LENGTH }, () => ({ x: 0, y: 0 }))
     )
 
-    const handleMouseMove = (event: MouseEvent) => {
-        mouseXRef.current = event.clientX
-        mouseYRef.current = event.clientY
-    }
+    // Store the event handler in a ref to ensure stability
+    const handleMouseMoveRef = useRef<(event: MouseEvent) => void>(() => { })
 
     useEffect(() => {
+        handleMouseMoveRef.current = (event: MouseEvent) => {
+            mouseXRef.current = event.clientX
+            mouseYRef.current = event.clientY
+        }
+    }, [])
+
+    useEffect(() => {
+        const handleMouseMove = (event: MouseEvent) => {
+            handleMouseMoveRef.current(event)
+        }
+
         window.addEventListener('mousemove', handleMouseMove)
         return () => {
             window.removeEventListener('mousemove', handleMouseMove)
