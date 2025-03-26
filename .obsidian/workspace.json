@@ -27,12 +27,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "explore/3d.md",
+                "file": "explore/前端.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "3d"
+              "title": "前端"
             }
           }
         ],
@@ -182,23 +182,23 @@
   },
   "active": "341c0a31aac77aeb",
   "lastOpenFiles": [
-    "explore/前端.md",
     "explore/3d.md",
-    "code/threejs-demo/app/rotating-cube/page.tsx",
-    "code/threejs-demo/app/rotating-cube/page.ts",
-    "code/threejs-demo/app/rotating-cube/cube.ts",
-    "code/threejs-demo/app/rotating-cube",
+    "code/threejs-demo/app/css-rendering",
+    "code/threejs-demo/app/css-",
     "explore/机器人.md",
+    "explore/金融.md",
+    "explore/前端.md",
     "explore/算法.md",
-    "code/threejs-demo/app/geoey-cursor/page.tsx",
-    "code/threejs-demo/app/geoey-cursor",
-    "code/threejs-demo/app/triangle-Msaa/page.tsx",
-    "code/threejs-demo/app/triangle-Msaa",
-    "code/threejs-demo/app/triangle copy/page.tsx",
-    "code/threejs-demo/app/triangle copy",
     "explore/tool.md",
     "explore/阅读纸质书或者paper或者文章.md",
-    "explore/金融.md",
+    "code/threejs-demo/utils/shaders/vertexPositionColor.frag.wgsl",
+    "code/threejs-demo/utils/shaders/triangle.vert.wgsl",
+    "code/threejs-demo/utils/shaders/sampleExternalTexture.frag.wgsl",
+    "code/threejs-demo/utils/shaders/red.frag.wgsl",
+    "code/threejs-demo/utils/shaders/fullscreenTexturedQuad.wgsl",
+    "code/threejs-demo/utils/shaders/black.frag.wgsl",
+    "code/threejs-demo/utils/shaders/basic.vert.wgsl",
+    "code/threejs-demo/utils/shaders",
     "Excalidraw/react.excalidraw.md",
     "code/threejs-demo/public/basis/README.md",
     "code/my-crossy-road-game/src/javascript.svg",

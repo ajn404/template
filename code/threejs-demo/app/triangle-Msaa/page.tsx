@@ -31,7 +31,6 @@ export default function Triangle() {
         if (resources.current.animationFrameId) {
             cancelAnimationFrame(resources.current.animationFrameId);
         }
-
         if (resources.current.device) {
             resources.current.device.queue.onSubmittedWorkDone().then(() => {
                 resources.current.vertexBuffer?.destroy();
@@ -40,15 +39,9 @@ export default function Triangle() {
                 resources.current.device?.destroy();
             });
         }
-
         if (resources.current.context) {
             resources.current.context.unconfigure();
         }
-
-        // if (canvasRef.current) {
-        //     canvasRef.current.width = 0;
-        //     canvasRef.current.height = 0;
-        // }
     };
 
     useEffect(() => {
@@ -59,10 +52,7 @@ export default function Triangle() {
                 const canvas = canvasRef.current;
                 if (!canvas) return;
 
-                // 等待DOM更新完成
-                await new Promise(resolve => setTimeout(resolve, 50));
-
-                // 设备初始化
+                // 设备初始化   
                 const adapter = await navigator.gpu.requestAdapter();
                 resources.current.device = await adapter?.requestDevice();
                 if (!resources.current.device) return;
@@ -204,7 +194,6 @@ export default function Triangle() {
                 cleanupResources();
             }
         };
-
         initWebGPU();
         return cleanupResources;
     }, []);
