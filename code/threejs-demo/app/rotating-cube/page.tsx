@@ -45,10 +45,17 @@ export default function RotatingCube() {
                 format: presentationFormat,
             });
 
+            // 创建缓冲区
             const vertexBuffer = resources.current.device.createBuffer({
-                size: cubeVertexCount * cubeVertexSize,
+                size: cubeVertexArray.byteLength,
                 usage: GPUBufferUsage.VERTEX,
+                mappedAtCreation: true,
             })
+
+            // 将顶点数据写入缓冲区
+            new Float32Array(vertexBuffer.getMappedRange()).set(cubeVertexArray);
+
+
         }
 
 
