@@ -25,12 +25,14 @@
             "id": "341c0a31aac77aeb",
             "type": "leaf",
             "state": {
-              "type": "excalidraw",
+              "type": "markdown",
               "state": {
-                "file": "Excalidraw/10.1.excalidraw.md"
+                "file": "explore/金融.md",
+                "mode": "source",
+                "source": false
               },
-              "icon": "excalidraw-icon",
-              "title": "10.1.excalidraw"
+              "icon": "lucide-file",
+              "title": "金融"
             }
           }
         ],
@@ -180,13 +182,14 @@
   },
   "active": "341c0a31aac77aeb",
   "lastOpenFiles": [
-    "Excalidraw/react.excalidraw.md",
-    "explore/3d.md",
-    "explore/前端.md",
-    "code/threejs-demo/app/css-rendering",
-    "code/threejs-demo/app/css-",
     "explore/机器人.md",
     "explore/金融.md",
+    "explore/3d.md",
+    "explore/前端.md",
+    "Excalidraw/10.1.excalidraw.md",
+    "Excalidraw/react.excalidraw.md",
+    "code/threejs-demo/app/css-rendering",
+    "code/threejs-demo/app/css-",
     "explore/算法.md",
     "explore/tool.md",
     "explore/阅读纸质书或者paper或者文章.md",
@@ -209,7 +212,6 @@
     "code/apparent-asteroid/public/favicon.svg",
     "code/vue3-ts/src/assets/logo.svg",
     "code/vue3-ts/README.md",
-    "Excalidraw/10.1.excalidraw.md",
     "code/threejs-demo/README.md",
     "code/threejs-demo/public/window.svg",
     "code/threejs-demo/public/vercel.svg",
