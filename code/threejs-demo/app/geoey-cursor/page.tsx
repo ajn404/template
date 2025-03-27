@@ -98,10 +98,9 @@ export default function Page() {
             </svg>
 
             {/* Page Content */}
-            <div className="min-h-screen bg-[#FAF7EE] flex items-center justify-center">
-                <h1 className="text-[148px] leading-none font-sans uppercase select-none">
-                    Gooey<br />Cursor
-                </h1>
+            <div className="min-h-screen bg-[#FAF7EE] flex items-center justify-center flex-col">
+                <img src="/next.svg" className='w-1/2 bg-blue-100 mix-blend-difference p-4' alt="" />
+                <h2 className='text-4xl font-bold mt-4 text-[#785b07]'>from ajn404</h2>
             </div>
 
             {/* Cursor Element */}
