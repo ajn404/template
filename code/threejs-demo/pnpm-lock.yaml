@@ -59,6 +59,9 @@ importers:
       three:
         specifier: ^0.174.0
         version: 0.174.0
+      wgpu-matrix:
+        specifier: ^3.4.0
+        version: 3.4.0
     devDependencies:
       '@eslint/eslintrc':
         specifier: ^3
@@ -2315,6 +2318,9 @@ packages:
     peerDependenciesMeta:
       webpack-cli:
         optional: true
+
+  wgpu-matrix@3.4.0:
+    resolution: {integrity: sha512-kXHrbAPKEn9A32Wf4wVldyx9MmnzwhuB5p8GCqoJP3ItU5+iDT4J3aTQwPZWkfb153hwGtqZtUwR2M+ipJKadg==}
 
   which-boxed-primitive@1.1.1:
     resolution: {integrity: sha512-TbX3mj8n0odCBFVlY8AxkqcHASw3L60jIuF8jFP78az3C2YhmGvqbHBpAjTRH2/xqYunrJ9g1jSyjCjpoWzIAA==}
@@ -4724,6 +4730,8 @@ snapshots:
       - '@swc/core'
       - esbuild
       - uglify-js
+
+  wgpu-matrix@3.4.0: {}
 
   which-boxed-primitive@1.1.1:
     dependencies:
