@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+        min-height: 100vh;
+        --mouse-x: 50%;
+        --mouse-y: 50%;
+        --color-1: #ff6b6b;
+        --color-2: #4ecdc4;
+        --color-3: #45b7d1;
+      }
+
+      .houdini-bg {
+        width: 100vw;
+        height: 100vh;
+        background: paint(noise-gradient);
+        transition: transform 0.3s;
+      }
+
+      .houdini-bg:hover {
+        transform: scale(1.05);
+      }
+      @supports not (background: paint(id)) {
+        .houdini-bg {
+          background: linear-gradient(to bottom, #ff6b6b, #4ecdc4, #45b7d1);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="houdini-bg"></div>
+    <script>
+      // 注册 Paint Worklet
+      CSS.paintWorklet.addModule("noise-worklet.js");
+
+      // 监听鼠标移动，更新坐标变量
+      document.addEventListener("mousemove", (e) => {
+        document.body.style.setProperty("--mouse-x", `${e.clientX}px`);
+        document.body.style.setProperty("--mouse-y", `${e.clientY}px`);
+      });
+    </script>
+  </body>
+</html>
