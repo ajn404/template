@@ -16,6 +16,7 @@ export default function Page() {
 
     // Store the event handler in a ref to ensure stability
     const handleMouseMoveRef = useRef<(event: MouseEvent) => void>(() => { })
+    const containerRef = useRef<HTMLDivElement>(null)
 
     useEffect(() => {
         handleMouseMoveRef.current = (event: MouseEvent) => {
@@ -29,9 +30,34 @@ export default function Page() {
             handleMouseMoveRef.current(event)
         }
 
-        window.addEventListener('mousemove', handleMouseMove)
+        const handleMouseLeave = () => {
+            // Hide all circles when the mouse leaves the window
+            cursorCircles.forEach(circleRef => {
+                if (circleRef.current) {
+                    circleRef.current.style.opacity = '0'
+                }
+            })
+        }
+
+        const handleMouseEnter = () => {
+            // Show all circles when the mouse re-enters the window
+            cursorCircles.forEach(circleRef => {
+                if (circleRef.current) {
+                    circleRef.current.style.opacity = '1'
+                }
+            })
+        }
+
+
+
+        containerRef.current?.addEventListener('mousemove', handleMouseMove)
+        containerRef.current?.addEventListener('mouseleave', handleMouseLeave)
+        containerRef.current?.addEventListener('mouseenter', handleMouseEnter)
+
         return () => {
-            window.removeEventListener('mousemove', handleMouseMove)
+            containerRef.current?.removeEventListener('mousemove', handleMouseMove)
+            containerRef.current?.removeEventListener('mouseleave', handleMouseLeave)
+            containerRef.current?.removeEventListener('mouseenter', handleMouseEnter)
         }
     }, [])
 
@@ -98,9 +124,25 @@ export default function Page() {
             </svg>
 
             {/* Page Content */}
-            <div className="min-h-screen bg-[#FAF7EE] flex items-center justify-center flex-col">
+            <div className="min-h-screen bg-[#FAF7EE] flex items-center justify-center flex-col" ref={containerRef}>
                 <img src="/next.svg" className='w-1/2 bg-blue-100 mix-blend-difference p-4' alt="" />
                 <h2 className='text-4xl font-bold mt-4 text-[#785b07]'>from ajn404</h2>
+                <svg
+                    width="120"
+                    height="120"
+                >
+                    <filter id="dropShadow">
+                        <feGaussianBlur in="SourceAlpha" stdDeviation="3" />
+                        <feOffset dx="2" dy="4" />
+                        <feMerge>
+                            <feMergeNode />
+                            <feMergeNode in="SourceGraphic" />
+                        </feMerge>
+                    </filter>
+
+                    <circle cx="60" cy="60" r="50" fill="green" filter="url(#dropShadow)" />
+                </svg>
+
             </div>
 
             {/* Cursor Element */}

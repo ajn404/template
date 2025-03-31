@@ -4,21 +4,17 @@
     "type": "split",
     "children": [
       {
-        "id": "1b1397a5bc4aa7b3",
+        "id": "f81a1f8c44054259",
         "type": "tabs",
         "children": [
           {
-            "id": "341c0a31aac77aeb",
+            "id": "c70547fd6c72ea01",
             "type": "leaf",
             "state": {
-              "type": "markdown",
-              "state": {
-                "file": "explore/前端.md",
-                "mode": "source",
-                "source": false
-              },
+              "type": "empty",
+              "state": {},
               "icon": "lucide-file",
-              "title": "前端"
+              "title": "新标签页"
             }
           }
         ]
@@ -165,8 +161,16 @@
       "obsidian-kanban:创建新看板": false
     }
   },
-  "active": "f9cb3b9998255a60",
+  "active": "c70547fd6c72ea01",
   "lastOpenFiles": [
+    "explore/算法.md",
+    "explore/3d.md",
+    "explore/机器人.md",
+    "explore/前端.md",
+    "explore/tool.md",
+    "code/threejs-demo/app/two-cubes/cube.ts",
+    "code/threejs-demo/app/two-cubes/page.tsx",
+    "code/threejs-demo/app/two-cubes",
     "code/htmls/css-houdini/noise-worklet.js",
     "code/htmls/css-houdini/index.html",
     "code/htmls/css-houdini",
@@ -174,20 +178,11 @@
     "code/threejs-demo/components/HoudiniButton.ts",
     "code/threejs-demo/components/HoudiniButton.tx",
     "code/threejs-demo/public/worklets/ripple-paint.js",
-    "code/threejs-demo/public/worklets",
-    "code/threejs-demo/pnpm-lock.yaml.3080143568",
-    "explore/3d.md",
     "explore/阅读纸质书或者paper或者文章.md",
-    "explore/算法.md",
-    "explore/前端.md",
     "Excalidraw/10.1.excalidraw.md",
     "explore/金融.md",
-    "explore/机器人.md",
-    "explore/tool.md",
     "code/apparent-asteroid/README.md",
     "Excalidraw/react.excalidraw.md",
-    "code/threejs-demo/app/css-rendering",
-    "code/threejs-demo/app/css-",
     "code/threejs-demo/public/basis/README.md",
     "code/my-crossy-road-game/src/javascript.svg",
     "code/my-crossy-road-game/public/vite.svg",
