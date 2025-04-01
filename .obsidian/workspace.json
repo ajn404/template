@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "explore/前端.md",
+                "file": "explore/算法.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "前端"
+              "title": "算法"
             }
           }
         ]
@@ -166,6 +166,7 @@
   },
   "active": "d37876f0350c2c0f",
   "lastOpenFiles": [
+    "explore/前端.md",
     "explore/金融.md",
     "explore/机器人.md",
     "explore/3d.md",
@@ -179,7 +180,6 @@
     "code/threejs-demo/node_modules/@typescript-eslint",
     "code/threejs-demo/node_modules/@eslint-community",
     "code/threejs-demo/node_modules/@next",
-    "explore/前端.md",
     "Excalidraw/react/props.excalidraw.md",
     "Excalidraw/10.1.excalidraw.md",
     "Excalidraw/react.excalidraw.md",
