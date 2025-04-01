@@ -2,7 +2,7 @@
 
 import { useEffect, useRef } from 'react'
 
-const TAIL_LENGTH = 20
+const TAIL_LENGTH = 20 // Number of circles in the cursor trail
 
 export default function Page() {
     const cursorRef = useRef<HTMLDivElement>(null)
@@ -47,8 +47,6 @@ export default function Page() {
                 }
             })
         }
-
-
 
         containerRef.current?.addEventListener('mousemove', handleMouseMove)
         containerRef.current?.addEventListener('mouseleave', handleMouseLeave)

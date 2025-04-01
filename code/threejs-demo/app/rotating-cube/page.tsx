@@ -23,11 +23,16 @@ type WebGPUResources = {
     animationFrameId?: number
 }
 
+// 定义一个useWebGPU函数，用于初始化WebGPU资源
 const useWebGPU = (canvasRef: React.RefObject<HTMLCanvasElement>) => {
+    // 使用useRef来存储WebGPU资源
     const resources = React.useRef<WebGPUResources>({})
 
+    // 创建深度纹理
     const createDepthTexture = (device: GPUDevice, size: GPUExtent3D, format: GPUTextureFormat) => {
+        // 如果当前存在深度纹理，则销毁
         resources.current.depthTexture?.destroy()
+        // 创建新的深度纹理
         return device.createTexture({
             size,
             format,
@@ -35,6 +40,7 @@ const useWebGPU = (canvasRef: React.RefObject<HTMLCanvasElement>) => {
         })
     }
 
+    // 创建渲染管线
     const createPipeline = (device: GPUDevice, format: GPUTextureFormat) => {
         return device.createRenderPipeline({
             layout: 'auto',
@@ -61,6 +67,7 @@ const useWebGPU = (canvasRef: React.RefObject<HTMLCanvasElement>) => {
         })
     }
 
+    // 初始化资源
     const initResources = async () => {
         const canvas = canvasRef.current
         if (!canvas) return
@@ -113,6 +120,7 @@ const useWebGPU = (canvasRef: React.RefObject<HTMLCanvasElement>) => {
         return { device, context, pipeline, depthTexture, uniformBuffer, uniformBindGroup }
     }
 
+    // 清理资源
     const cleanup = () => {
         resources.current.animationFrameId && cancelAnimationFrame(resources.current.animationFrameId)
         const destroy = (resource?: { destroy?: () => void }) => resource?.destroy?.()
@@ -128,6 +136,7 @@ const useWebGPU = (canvasRef: React.RefObject<HTMLCanvasElement>) => {
         resources.current = {}
     }
 
+    // 返回初始化资源和清理资源的函数
     return { initResources, cleanup, resources }
 }
 
