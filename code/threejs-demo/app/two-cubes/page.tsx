@@ -19,9 +19,14 @@ type WebGPUResources = {
     vertexBuffer?: GPUBuffer
     uniformBuffer?: GPUBuffer
     uniformBindGroup?: GPUBindGroup
+    uniformBindGroup1?: GPUBindGroup
     depthTexture?: GPUTexture
     animationFrameId?: number
 }
+
+const matrixSize = 4 * 16; // 4x4 matrix
+const offset = 256; // uniformBindGroup offset must be 256-byte aligned
+const uniformBufferSize = offset + matrixSize;
 
 // 定义一个useWebGPU函数，用于初始化WebGPU资源
 const useWebGPU = (canvasRef: React.RefObject<HTMLCanvasElement>) => {
@@ -77,7 +82,7 @@ const useWebGPU = (canvasRef: React.RefObject<HTMLCanvasElement>) => {
         if (!device) return
 
         const context = canvas.getContext('webgpu') as GPUCanvasContext
-        const format = navigator.gpu.getPreferredCanvasFormat()
+        const format: GPUTextureFormat = navigator.gpu.getPreferredCanvasFormat()
 
         const devicePixelRatio = window.devicePixelRatio
         canvas.width = canvas.clientWidth * devicePixelRatio
@@ -97,13 +102,23 @@ const useWebGPU = (canvasRef: React.RefObject<HTMLCanvasElement>) => {
         const depthTexture = createDepthTexture(device, [canvas.width, canvas.height], 'depth24plus')
 
         const uniformBuffer = device.createBuffer({
-            size: 16 * Float32Array.BYTES_PER_ELEMENT,
+            size: uniformBufferSize,
             usage: GPUBufferUsage.UNIFORM | GPUBufferUsage.COPY_DST
         })
 
         const uniformBindGroup = device.createBindGroup({
             layout: pipeline.getBindGroupLayout(0),
-            entries: [{ binding: 0, resource: { buffer: uniformBuffer } }]
+            entries: [{
+                binding: 0, resource: {
+                    buffer: uniformBuffer, offset: 0,
+                    size: matrixSize,
+                }
+            }]
+        })
+
+        const uniformBindGroup1 = device.createBindGroup({
+            layout: pipeline.getBindGroupLayout(0),
+            entries: [{ binding: 0, resource: { buffer: uniformBuffer, offset: offset, size: matrixSize } }]
         })
 
         resources.current = {
@@ -114,10 +129,11 @@ const useWebGPU = (canvasRef: React.RefObject<HTMLCanvasElement>) => {
             pipeline,
             depthTexture,
             uniformBuffer,
-            uniformBindGroup
+            uniformBindGroup,
+            uniformBindGroup1
         }
 
-        return { device, context, pipeline, depthTexture, uniformBuffer, uniformBindGroup }
+        return { device, context, pipeline, depthTexture, uniformBuffer, uniformBindGroup, uniformBindGroup1 }
     }
 
     // 清理资源
@@ -139,19 +155,66 @@ const useWebGPU = (canvasRef: React.RefObject<HTMLCanvasElement>) => {
     // 返回初始化资源和清理资源的函数
     return { initResources, cleanup, resources }
 }
+const modelMatrix1 = mat4.translation(vec3.create(-2, 0, 0));
+const modelMatrix2 = mat4.translation(vec3.create(2, 0, 0));
+const viewMatrix = mat4.translate(mat4.identity(), vec3.fromValues(0, 0, -7))
+const modelViewProjectionMatrix1 = mat4.create();
+const modelViewProjectionMatrix2 = mat4.create();
+const tmpMat41 = mat4.create();
+const tmpMat42 = mat4.create();
 
 const useAnimation = (resources: React.RefObject<WebGPUResources>) => {
+
     const render = React.useCallback(() => {
-        const { device, context, pipeline, uniformBuffer, uniformBindGroup, vertexBuffer, depthTexture } = resources.current
-        if (!device || !context || !pipeline || !depthTexture) return
+        const { device, context, pipeline, uniformBuffer, uniformBindGroup, uniformBindGroup1, vertexBuffer, depthTexture } = resources.current
+        if (!device || !context || !pipeline || !depthTexture) return () => { }
 
         const aspect = context.canvas.width / context.canvas.height
         const projectionMatrix = mat4.perspective(2 * Math.PI / 5, aspect, 1, 100)
-        const viewMatrix = mat4.translate(mat4.identity(), vec3.fromValues(0, 0, -4))
-        mat4.rotate(viewMatrix, vec3.fromValues(Math.sin(Date.now() / 1000), Math.cos(Date.now() / 1000), 0), 1, viewMatrix)
+ 
 
-        const transformationMatrix = mat4.multiply(projectionMatrix, viewMatrix)
-        device.queue.writeBuffer(uniformBuffer!, 0, transformationMatrix as Float32Array)
+        const now = Date.now() / 1000;
+
+        mat4.rotate(
+            modelMatrix1,
+            vec3.fromValues(Math.sin(now), Math.cos(now), 0),
+            1,
+            tmpMat41
+        );
+        mat4.rotate(
+            modelMatrix2,
+            vec3.fromValues(Math.cos(now), Math.sin(now), 0),
+            1,
+            tmpMat42
+        );
+
+        mat4.multiply(viewMatrix, tmpMat41, modelViewProjectionMatrix1);
+        mat4.multiply(
+            projectionMatrix,
+            modelViewProjectionMatrix1,
+            modelViewProjectionMatrix1
+        );
+        mat4.multiply(viewMatrix, tmpMat42, modelViewProjectionMatrix2);
+        mat4.multiply(
+            projectionMatrix,
+            modelViewProjectionMatrix2,
+            modelViewProjectionMatrix2
+        );
+
+        device.queue.writeBuffer(
+            uniformBuffer!,
+            0,
+            modelViewProjectionMatrix1.buffer,
+            modelViewProjectionMatrix1.byteOffset,
+            modelViewProjectionMatrix1.byteLength
+        );
+        device.queue.writeBuffer(
+            uniformBuffer!,
+            offset,
+            modelViewProjectionMatrix2.buffer,
+            modelViewProjectionMatrix2.byteOffset,
+            modelViewProjectionMatrix2.byteLength
+        );
 
         const commandEncoder = device.createCommandEncoder()
         const renderPass = commandEncoder.beginRenderPass({
@@ -170,8 +233,13 @@ const useAnimation = (resources: React.RefObject<WebGPUResources>) => {
         })
 
         renderPass.setPipeline(pipeline)
-        renderPass.setBindGroup(0, uniformBindGroup!)
         renderPass.setVertexBuffer(0, vertexBuffer!)
+
+        renderPass.setBindGroup(0, uniformBindGroup!)
+        renderPass.draw(cubeVertexCount)
+
+
+        renderPass.setBindGroup(0, uniformBindGroup1!)
         renderPass.draw(cubeVertexCount)
         renderPass.end()
 

@@ -4,17 +4,21 @@
     "type": "split",
     "children": [
       {
-        "id": "f81a1f8c44054259",
+        "id": "3816c567dff1fbd5",
         "type": "tabs",
         "children": [
           {
-            "id": "c70547fd6c72ea01",
+            "id": "d37876f0350c2c0f",
             "type": "leaf",
             "state": {
-              "type": "empty",
-              "state": {},
+              "type": "markdown",
+              "state": {
+                "file": "explore/前端.md",
+                "mode": "source",
+                "source": false
+              },
               "icon": "lucide-file",
-              "title": "新标签页"
+              "title": "前端"
             }
           }
         ]
@@ -36,8 +40,7 @@
             "state": {
               "type": "file-explorer",
               "state": {
-                "sortOrder": "alphabetical",
-                "autoReveal": false
+                "sortOrder": "alphabetical"
               },
               "icon": "lucide-folder-closed",
               "title": "文件列表"
@@ -161,28 +164,29 @@
       "obsidian-kanban:创建新看板": false
     }
   },
-  "active": "c70547fd6c72ea01",
+  "active": "d37876f0350c2c0f",
   "lastOpenFiles": [
-    "explore/算法.md",
-    "explore/3d.md",
-    "explore/机器人.md",
-    "explore/前端.md",
-    "explore/tool.md",
-    "code/threejs-demo/app/two-cubes/cube.ts",
-    "code/threejs-demo/app/two-cubes/page.tsx",
-    "code/threejs-demo/app/two-cubes",
-    "code/htmls/css-houdini/noise-worklet.js",
-    "code/htmls/css-houdini/index.html",
-    "code/htmls/css-houdini",
-    "code/threejs-demo/components/HoudiniButton.tsx",
-    "code/threejs-demo/components/HoudiniButton.ts",
-    "code/threejs-demo/components/HoudiniButton.tx",
-    "code/threejs-demo/public/worklets/ripple-paint.js",
-    "explore/阅读纸质书或者paper或者文章.md",
-    "Excalidraw/10.1.excalidraw.md",
     "explore/金融.md",
-    "code/apparent-asteroid/README.md",
+    "explore/机器人.md",
+    "explore/3d.md",
+    "code/threejs-demo/next-env.d.ts",
+    "code/threejs-demo/node_modules/@radix-ui",
+    "code/threejs-demo/node_modules/@mediapipe",
+    "code/threejs-demo/node_modules/@webgpu",
+    "code/threejs-demo/node_modules/@tailwindcss",
+    "code/threejs-demo/node_modules/@types",
+    "code/threejs-demo/node_modules/@eslint",
+    "code/threejs-demo/node_modules/@typescript-eslint",
+    "code/threejs-demo/node_modules/@eslint-community",
+    "code/threejs-demo/node_modules/@next",
+    "explore/前端.md",
+    "Excalidraw/react/props.excalidraw.md",
+    "Excalidraw/10.1.excalidraw.md",
     "Excalidraw/react.excalidraw.md",
+    "explore/算法.md",
+    "explore/tool.md",
+    "explore/阅读纸质书或者paper或者文章.md",
+    "code/apparent-asteroid/README.md",
     "code/threejs-demo/public/basis/README.md",
     "code/my-crossy-road-game/src/javascript.svg",
     "code/my-crossy-road-game/public/vite.svg",
@@ -201,7 +205,6 @@
     "code/threejs-demo/public/file.svg",
     "readme.md",
     "Excalidraw/10.2.excalidraw.md",
-    "Excalidraw/react/props.excalidraw.md",
     "算法/未命名.md",
     "未命名看板.md",
     "未命名.md",
