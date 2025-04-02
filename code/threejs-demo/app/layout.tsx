@@ -14,7 +14,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
                 <SidebarTrigger />
                 <h2 className="font-bold">just some three demo</h2>
               </div>
-              <div className="max-w-full max-h-full">
+              <div className="max-w-full max-h-full w-full h-full">
                 {children}
               </div>
             </main>

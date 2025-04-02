@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "explore/3d.md",
+                "file": "explore/前端.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "3d"
+              "title": "前端"
             }
           }
         ]
@@ -166,25 +166,25 @@
   },
   "active": "d37876f0350c2c0f",
   "lastOpenFiles": [
+    "code/threejs-demo/app/OrthographicCamera/page.tsx",
+    "explore/3d.md",
+    "code/threejs-demo/app/OrthographicCamera/Page.tsx",
+    "code/threejs-demo/app/OrthographicCamera",
+    "code/my-crossy-road-game-three-fiber/src/index.css",
+    "code/my-crossy-road-game-three-fiber/src/components/Player.tsx",
+    "code/my-crossy-road-game-three-fiber/src/components/Scene.tsx",
+    "code/my-crossy-road-game-three-fiber/src/components",
+    "code/my-crossy-road-game-three-fiber/src/Game.tsx",
     "code/my-crossy-road-game-three-fiber/node_modules/@react-three",
     "code/my-crossy-road-game-three-fiber/pnpm-lock.yaml",
     "code/my-crossy-road-game-three-fiber/node_modules/@vitejs",
-    "code/my-crossy-road-game-three-fiber/node_modules/@types",
-    "code/my-crossy-road-game-three-fiber/node_modules/@typescript-eslint",
-    "code/my-crossy-road-game-three-fiber/node_modules/@eslint",
-    "code/my-crossy-road-game-three-fiber/node_modules/@eslint-community",
-    "code/my-crossy-road-game-three-fiber/node_modules",
     "code/my-crossy-road-game-three-fiber/src/assets/react.svg",
-    "code/my-crossy-road-game-three-fiber/src/vite-env.d.ts",
-    "code/my-crossy-road-game-three-fiber/src/main.tsx",
-    "code/my-crossy-road-game-three-fiber/src/App.tsx",
     "code/my-crossy-road-game-three-fiber/public/vite.svg",
     "code/my-crossy-road-game-three-fiber/README.md",
     "explore/前端.md",
     "explore/算法.md",
     "explore/金融.md",
     "explore/机器人.md",
-    "explore/3d.md",
     "Excalidraw/react/props.excalidraw.md",
     "Excalidraw/10.1.excalidraw.md",
     "Excalidraw/react.excalidraw.md",
