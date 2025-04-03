@@ -167,6 +167,8 @@
   },
   "active": "d37876f0350c2c0f",
   "lastOpenFiles": [
+    "code/threejs-demo/app/texture-cube/xiao.jpg",
+    "code/threejs-demo/app/texture-cube/index.html",
     "explore/机器人.md",
     "explore/3d.md",
     "explore/tool.md",
@@ -189,7 +191,6 @@
     "code/my-crossy-road-game-three-fiber/src/components/Player.tsx",
     "code/my-crossy-road-game-three-fiber/src/components/Scene.tsx",
     "code/my-crossy-road-game-three-fiber/src/components",
-    "code/my-crossy-road-game-three-fiber/src/Game.tsx",
     "code/my-crossy-road-game-three-fiber/src/assets/react.svg",
     "code/my-crossy-road-game-three-fiber/public/vite.svg",
     "code/my-crossy-road-game-three-fiber/README.md",
