@@ -233,16 +233,10 @@ const useAnimation = (resources: React.RefObject<WebGPUResources>) => {
         })
 
         renderPass.setPipeline(pipeline)
-        renderPass.setVertexBuffer(0, vertexBuffer!)
-
         renderPass.setBindGroup(0, uniformBindGroup!)
-        renderPass.draw(cubeVertexCount)
-
-
-        renderPass.setBindGroup(0, uniformBindGroup1!)
+        renderPass.setVertexBuffer(0, vertexBuffer!)
         renderPass.draw(cubeVertexCount)
         renderPass.end()
-
         device.queue.submit([commandEncoder.finish()])
         resources.current.animationFrameId = requestAnimationFrame(render)
     }, [])

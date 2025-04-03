@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="400" height="400" viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg">
+    <!-- 背景 -->
+    <rect width="400" height="400" fill="#FFE4E1"/>
+    
+    <!-- 猫耳 -->
+    <path d="M150,100 L200,50 L250,100 L200,150 Z" fill="#FFB6C1"/>
+    <path d="M150,100 L200,50 L250,100 L200,150 Z" fill="#FFB6C1" transform="translate(100,0)"/>
+    
+    <!-- 脸部 -->
+    <circle cx="200" cy="200" r="100" fill="#FFC0CB"/>
+    
+    <!-- 眼睛 -->
+    <circle cx="170" cy="190" r="15" fill="#4A4A4A"/>
+    <circle cx="230" cy="190" r="15" fill="#4A4A4A"/>
+    
+    <!-- 鼻子 -->
+    <path d="M195,210 L200,220 L205,210 Z" fill="#FF69B4"/>
+    
+    <!-- 嘴巴 -->
+    <path d="M180,230 Q200,250 220,230" stroke="#FF69B4" stroke-width="3" fill="none"/>
+    
+    <!-- 猫尾巴 -->
+    <path d="M300,250 C350,200 350,150 300,100" stroke="#FFB6C1" stroke-width="20" fill="none"/>
+    <path d="M300,100 C350,150 350,200 300,250" stroke="#FFB6C1" stroke-width="20" fill="none"/>
+    
+    <!-- 装饰性蝴蝶结 -->
+    <circle cx="150" cy="150" r="10" fill="#FF69B4"/>
+    <circle cx="150" cy="150" r="5" fill="#FFB6C1"/>
+    <path d="M145,150 L155,150 L150,160 Z" fill="#FF69B4"/>
+</svg> 

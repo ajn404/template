@@ -10,7 +10,7 @@ import {
     cubeVertexCount,
 } from '../rotating-cube/cube'
 import basicVertWGSL from '@/utils/shaders/basic.vert.wgsl'
-import vertexPositionColorWGSL from '@/utils/shaders/vertexPositionColor.frag.wgsl'
+import sampleTextureMixColorWGSL from './sampleTextureMixColor.frag.wgsl'
 
 type WebGPUResources = {
     device?: GPUDevice
@@ -18,6 +18,9 @@ type WebGPUResources = {
     pipeline?: GPURenderPipeline
     vertexBuffer?: GPUBuffer
     depthTexture?: GPUTexture
+    uniformBuffer?: GPUBuffer
+    cubeTexture?: GPUTexture
+    uniformBindGroup?: GPUBindGroup
     animationFrameId?: number
 }
 
@@ -54,16 +57,39 @@ const useWebGPU = (canvasRef: React.RefObject<HTMLCanvasElement>) => {
                 }]
             },
             fragment: {
-                module: device.createShaderModule({ code: vertexPositionColorWGSL }),
+                module: device.createShaderModule({ code: sampleTextureMixColorWGSL }),
                 targets: [{ format }]
             },
-            primitive: { topology: 'triangle-list', cullMode: 'back' },
+            primitive: {
+                topology: 'triangle-list',//三角形列表
+                cullMode: 'back'//背面剔除
+            },
             depthStencil: {
                 depthWriteEnabled: true,
                 depthCompare: 'less',
                 format: 'depth24plus'
             }
         })
+    }
+
+    const loadCubeTexture = async (device: GPUDevice) => {
+        let cubeTexture: GPUTexture;
+        const response = await fetch('/xiao.jpg');
+        const imageBitmap = await createImageBitmap(await response.blob());
+        cubeTexture = device.createTexture({
+            size: [imageBitmap.width, imageBitmap.height, 1],
+            format: 'rgba8unorm',
+            usage:
+                GPUTextureUsage.TEXTURE_BINDING |
+                GPUTextureUsage.COPY_DST |
+                GPUTextureUsage.RENDER_ATTACHMENT,
+        });
+        device.queue.copyExternalImageToTexture(
+            { source: imageBitmap },
+            { texture: cubeTexture },
+            [imageBitmap.width, imageBitmap.height]
+        );
+        return cubeTexture
     }
 
     // 初始化资源
@@ -95,6 +121,38 @@ const useWebGPU = (canvasRef: React.RefObject<HTMLCanvasElement>) => {
         const pipeline = createPipeline(device, format)
         const depthTexture = createDepthTexture(device, [canvas.width, canvas.height], 'depth24plus')
 
+        const uniformBuffer = device.createBuffer({
+            size: 4 * 16,
+            usage: GPUBufferUsage.UNIFORM | GPUBufferUsage.COPY_DST,// 绑定到uniform变量
+        })
+
+        let cubeTexture = await loadCubeTexture(device)
+
+        const sampler = device.createSampler({
+            magFilter: 'linear',
+            minFilter: 'linear',
+        })
+        const uniformBindGroup = device.createBindGroup({
+            layout: pipeline.getBindGroupLayout(0),
+            entries: [
+                {
+                    binding: 0,
+                    resource: {
+                        buffer: uniformBuffer
+                    }
+                },
+                {
+                    binding: 1,
+                    resource: sampler
+                },
+                {
+                    binding: 2,
+                    resource: cubeTexture.createView()
+                }
+            ]
+
+        })
+
         resources.current = {
             ...resources.current,
             device,
@@ -102,6 +160,9 @@ const useWebGPU = (canvasRef: React.RefObject<HTMLCanvasElement>) => {
             vertexBuffer,
             pipeline,
             depthTexture,
+            uniformBuffer,
+            uniformBindGroup,
+            cubeTexture
         }
 
         return { device, context, pipeline, depthTexture }
@@ -115,6 +176,8 @@ const useWebGPU = (canvasRef: React.RefObject<HTMLCanvasElement>) => {
         resources.current.device?.queue.onSubmittedWorkDone().then(() => {
             destroy(resources.current.vertexBuffer)
             destroy(resources.current.depthTexture)
+            destroy(resources.current.uniformBuffer)
+            destroy(resources.current.cubeTexture)
             destroy(resources.current.context?.getCurrentTexture())
         })
 
@@ -122,15 +185,64 @@ const useWebGPU = (canvasRef: React.RefObject<HTMLCanvasElement>) => {
         resources.current = {}
     }
 
+
     // 返回初始化资源和清理资源的函数
     return { initResources, cleanup, resources }
 }
+
+const modelMatrix1 = mat4.translation(vec3.create(-2, 0, 0));
+const modelMatrix2 = mat4.translation(vec3.create(2, 0, 0));
+const viewMatrix = mat4.translate(mat4.identity(), vec3.fromValues(0, 0, -7))
+const modelViewProjectionMatrix1 = mat4.create();
+const modelViewProjectionMatrix2 = mat4.create();
+const tmpMat41 = mat4.create();
+const tmpMat42 = mat4.create();
 
 const useAnimation = (resources: React.RefObject<WebGPUResources>) => {
 
     const render = React.useCallback(() => {
         const { device, context, pipeline, vertexBuffer, depthTexture } = resources.current
         if (!device || !context || !pipeline || !depthTexture) return () => { }
+
+        const aspect = context.canvas.width / context.canvas.height
+        const projectionMatrix = mat4.perspective(2 * Math.PI / 5, aspect, 1, 100)
+
+
+        const now = Date.now() / 1000;
+
+        mat4.rotate(
+            modelMatrix1,
+            vec3.fromValues(Math.sin(now), Math.cos(now), 0),
+            1,
+            tmpMat41
+        );
+        mat4.rotate(
+            modelMatrix2,
+            vec3.fromValues(Math.cos(now), Math.sin(now), 0),
+            1,
+            tmpMat42
+        );
+
+        mat4.multiply(viewMatrix, tmpMat41, modelViewProjectionMatrix1);
+        mat4.multiply(
+            projectionMatrix,
+            modelViewProjectionMatrix1,
+            modelViewProjectionMatrix1
+        );
+        mat4.multiply(viewMatrix, tmpMat42, modelViewProjectionMatrix2);
+        mat4.multiply(
+            projectionMatrix,
+            modelViewProjectionMatrix2,
+            modelViewProjectionMatrix2
+        );
+
+        device.queue.writeBuffer(
+            resources.current.uniformBuffer!,
+            0,
+            modelViewProjectionMatrix1.buffer,
+            modelViewProjectionMatrix1.byteOffset,
+            modelViewProjectionMatrix1.byteLength
+        );
 
         const commandEncoder = device.createCommandEncoder()
         const renderPass = commandEncoder.beginRenderPass({
@@ -149,10 +261,9 @@ const useAnimation = (resources: React.RefObject<WebGPUResources>) => {
         })
 
         renderPass.setPipeline(pipeline)
+        renderPass.setBindGroup(0, resources.current.uniformBindGroup)
         renderPass.setVertexBuffer(0, vertexBuffer!)
-
         renderPass.end()
-
         device.queue.submit([commandEncoder.finish()])
         resources.current.animationFrameId = requestAnimationFrame(render)
     }, [])
@@ -166,11 +277,9 @@ export default function Page() {
     const { initResources, cleanup, resources } = useWebGPU(canvasRef as React.RefObject<HTMLCanvasElement>);
     const render = useAnimation(resources)
     React.useEffect(() => {
-
         initResources().then(() => {
             render()
         })
-
         return () => {
             cleanup()
             resources.current.animationFrameId && cancelAnimationFrame(resources.current.animationFrameId)

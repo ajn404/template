@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "explore/算法.md",
+                "file": "explore/金融.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "算法"
+              "title": "金融"
             }
           }
         ]
@@ -40,7 +40,8 @@
             "state": {
               "type": "file-explorer",
               "state": {
-                "sortOrder": "alphabetical"
+                "sortOrder": "alphabetical",
+                "autoReveal": false
               },
               "icon": "lucide-folder-closed",
               "title": "文件列表"
@@ -166,11 +167,21 @@
   },
   "active": "d37876f0350c2c0f",
   "lastOpenFiles": [
-    "explore/金融.md",
     "explore/机器人.md",
     "explore/3d.md",
     "explore/tool.md",
+    "explore/阅读纸质书或者paper或者文章.md",
+    "catgirl.svg",
+    "Excalidraw/Scripts/Downloaded/Darken background color.md",
+    "Excalidraw/10.1.excalidraw.md",
+    "Excalidraw/react/props.excalidraw.md",
+    "code/threejs-demo/public/xiao.jpg",
+    "code/threejs-demo/public/1b25a332efb7077371cfc25b4790ce.jpg",
+    "explore/算法.md",
     "explore/前端.md",
+    "explore/金融.md",
+    "code/threejs-demo/app/texture-cube/sampleTextureMixColor.frag.wgsl",
+    "code/threejs-demo/app/texture-cube/sample.wgsl",
     "code/threejs-demo/app/OrthographicCamera/page.tsx",
     "code/threejs-demo/app/OrthographicCamera/Page.tsx",
     "code/threejs-demo/app/OrthographicCamera",
@@ -179,16 +190,10 @@
     "code/my-crossy-road-game-three-fiber/src/components/Scene.tsx",
     "code/my-crossy-road-game-three-fiber/src/components",
     "code/my-crossy-road-game-three-fiber/src/Game.tsx",
-    "code/my-crossy-road-game-three-fiber/node_modules/@react-three",
-    "code/my-crossy-road-game-three-fiber/pnpm-lock.yaml",
     "code/my-crossy-road-game-three-fiber/src/assets/react.svg",
     "code/my-crossy-road-game-three-fiber/public/vite.svg",
     "code/my-crossy-road-game-three-fiber/README.md",
-    "explore/算法.md",
-    "Excalidraw/react/props.excalidraw.md",
-    "Excalidraw/10.1.excalidraw.md",
     "Excalidraw/react.excalidraw.md",
-    "explore/阅读纸质书或者paper或者文章.md",
     "code/apparent-asteroid/README.md",
     "code/threejs-demo/public/basis/README.md",
     "code/my-crossy-road-game/src/javascript.svg",
@@ -201,9 +206,6 @@
     "code/vue3-ts/src/assets/logo.svg",
     "code/vue3-ts/README.md",
     "code/threejs-demo/README.md",
-    "code/threejs-demo/public/window.svg",
-    "code/threejs-demo/public/vercel.svg",
-    "code/threejs-demo/public/next.svg",
     "readme.md",
     "Excalidraw/10.2.excalidraw.md",
     "算法/未命名.md",
@@ -211,7 +213,6 @@
     "未命名.md",
     "Excalidraw/react/未命名.canvas",
     "Excalidraw/Scripts/Downloaded/Zoom to Fit Selected Elements.md",
-    "Excalidraw/Scripts/Downloaded/Auto Layout.md",
     "算法/未命名.canvas"
   ]
 }
