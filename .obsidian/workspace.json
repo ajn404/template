@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "explore/金融.md",
+                "file": "explore/3d.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "金融"
+              "title": "3d"
             }
           }
         ]
@@ -167,6 +167,7 @@
   },
   "active": "d37876f0350c2c0f",
   "lastOpenFiles": [
+    "explore/金融.md",
     "code/threejs-demo/app/texture-cube/xiao.jpg",
     "code/threejs-demo/app/texture-cube/index.html",
     "explore/机器人.md",
@@ -181,7 +182,6 @@
     "code/threejs-demo/public/1b25a332efb7077371cfc25b4790ce.jpg",
     "explore/算法.md",
     "explore/前端.md",
-    "explore/金融.md",
     "code/threejs-demo/app/texture-cube/sampleTextureMixColor.frag.wgsl",
     "code/threejs-demo/app/texture-cube/sample.wgsl",
     "code/threejs-demo/app/OrthographicCamera/page.tsx",
@@ -204,7 +204,6 @@
     "code/apparent-asteroid/src/content/docs/guides/example.md",
     "code/apparent-asteroid/src/assets/houston.webp",
     "code/apparent-asteroid/public/favicon.svg",
-    "code/vue3-ts/src/assets/logo.svg",
     "code/vue3-ts/README.md",
     "code/threejs-demo/README.md",
     "readme.md",

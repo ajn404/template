@@ -97,12 +97,14 @@ const useWebGPU = (canvasRef: React.RefObject<HTMLCanvasElement>) => {
         const canvas = canvasRef.current
         if (!canvas) return
 
-        const adapter = await navigator.gpu.requestAdapter()
+        const adapter = await navigator.gpu.requestAdapter({
+            featureLevel: 'compatibility'
+        })
         const device = await adapter?.requestDevice()
         if (!device) return
 
         const context = canvas.getContext('webgpu') as GPUCanvasContext
-        const format: GPUTextureFormat = navigator.gpu.getPreferredCanvasFormat()
+        const format: GPUTextureFormat = navigator.gpu.getPreferredCanvasFormat()//返回用于当前系统上显示 8 位色深、标准动态范围 
 
         const devicePixelRatio = window.devicePixelRatio
         canvas.width = canvas.clientWidth * devicePixelRatio
