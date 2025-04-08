@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "explore/3d.md",
+                "file": "explore/前端.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "3d"
+              "title": "前端"
             }
           }
         ]
@@ -167,20 +167,21 @@
   },
   "active": "d37876f0350c2c0f",
   "lastOpenFiles": [
+    "explore/算法.md",
+    "explore/tool.md",
+    "explore/阅读纸质书或者paper或者文章.md",
+    "stock/2025-04-08.md",
+    "explore/3d.md",
     "explore/金融.md",
     "code/threejs-demo/app/texture-cube/xiao.jpg",
     "code/threejs-demo/app/texture-cube/index.html",
     "explore/机器人.md",
-    "explore/3d.md",
-    "explore/tool.md",
-    "explore/阅读纸质书或者paper或者文章.md",
     "catgirl.svg",
     "Excalidraw/Scripts/Downloaded/Darken background color.md",
     "Excalidraw/10.1.excalidraw.md",
     "Excalidraw/react/props.excalidraw.md",
     "code/threejs-demo/public/xiao.jpg",
     "code/threejs-demo/public/1b25a332efb7077371cfc25b4790ce.jpg",
-    "explore/算法.md",
     "explore/前端.md",
     "code/threejs-demo/app/texture-cube/sampleTextureMixColor.frag.wgsl",
     "code/threejs-demo/app/texture-cube/sample.wgsl",

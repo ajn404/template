@@ -192,13 +192,10 @@ const useWebGPU = (canvasRef: React.RefObject<HTMLCanvasElement>) => {
     return { initResources, cleanup, resources }
 }
 
-const modelMatrix1 = mat4.translation(vec3.create(-2, 0, 0));
-const modelMatrix2 = mat4.translation(vec3.create(2, 0, 0));
-const viewMatrix = mat4.translate(mat4.identity(), vec3.fromValues(0, 0, -7))
+const modelMatrix1 = mat4.translation(vec3.create(0, 0, 0));
+const viewMatrix = mat4.translate(mat4.identity(), vec3.fromValues(0, 0, -3))
 const modelViewProjectionMatrix1 = mat4.create();
-const modelViewProjectionMatrix2 = mat4.create();
 const tmpMat41 = mat4.create();
-const tmpMat42 = mat4.create();
 
 const useAnimation = (resources: React.RefObject<WebGPUResources>) => {
 
@@ -218,24 +215,12 @@ const useAnimation = (resources: React.RefObject<WebGPUResources>) => {
             1,
             tmpMat41
         );
-        mat4.rotate(
-            modelMatrix2,
-            vec3.fromValues(Math.cos(now), Math.sin(now), 0),
-            1,
-            tmpMat42
-        );
 
         mat4.multiply(viewMatrix, tmpMat41, modelViewProjectionMatrix1);
         mat4.multiply(
             projectionMatrix,
             modelViewProjectionMatrix1,
             modelViewProjectionMatrix1
-        );
-        mat4.multiply(viewMatrix, tmpMat42, modelViewProjectionMatrix2);
-        mat4.multiply(
-            projectionMatrix,
-            modelViewProjectionMatrix2,
-            modelViewProjectionMatrix2
         );
 
         device.queue.writeBuffer(
@@ -265,6 +250,7 @@ const useAnimation = (resources: React.RefObject<WebGPUResources>) => {
         renderPass.setPipeline(pipeline)
         renderPass.setBindGroup(0, resources.current.uniformBindGroup)
         renderPass.setVertexBuffer(0, vertexBuffer!)
+        renderPass.draw(cubeVertexCount);
         renderPass.end()
         device.queue.submit([commandEncoder.finish()])
         resources.current.animationFrameId = requestAnimationFrame(render)
